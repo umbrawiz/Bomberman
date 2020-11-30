@@ -1,5 +1,6 @@
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -7,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -30,7 +32,8 @@ public class Boo extends Application {
     private java.util.List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
     private int[][] maps = new int[HEIGHT][WIDTH];
-    Entity bomber = new Bomber(1,1,Sprite.player_right);
+    Bomber bomber = new Bomber(1,1,Sprite.player_right);
+
 
     public static void main(String[] args) {
         Application.launch(Boo.class);
@@ -53,6 +56,12 @@ public class Boo extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        bomber.keyPressed(event);
+                    }
+                });
                 render();
                 update();
             }
@@ -60,15 +69,6 @@ public class Boo extends Application {
         timer.start();
 
         createMap();
-//
-//        for(int i = 0 ; i < maps.length ;i++){
-//            for(int j = 0 ; j < maps[i].length ;j++){
-//                System.out.print(maps[i][j]);
-//            }
-//            System.out.println();
-//        }
-
-
     }
 
     public void readMapFromFile() throws IOException{
