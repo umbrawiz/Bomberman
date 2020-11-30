@@ -11,10 +11,11 @@ public class Bomber extends Entity{
     private Status current_status;
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
+        this.current_status = Status.Left;
     }
 
     enum Status{
-        Up,Down,Left,Right;
+        Up,Up1,Up2,Down,Down1,Down2,Left,Left1,Left2,Right,Right1,Right2;
     }
 
     public void keyPressed(javafx.scene.input.KeyEvent e) {
@@ -22,15 +23,32 @@ public class Bomber extends Entity{
         KeyCode key = e.getCode();
 
         if (key == KeyCode.LEFT) {
-            if(current_status != Status.Left){
+            if(current_status == Status.Left){
+                current_status = Status.Left1;
+                this.image = Sprite.player_left_1;
+            }
+            else if (current_status == Status.Left1){
+                current_status = Status.Left2;
+                this.image = Sprite.player_left_2;
+            }
+            else{
                 current_status = Status.Left;
                 this.image = Sprite.player_left;
             }
+
             this.pointX -= movement_speed;
         }
 
         if (key == KeyCode.RIGHT) {
-            if(current_status != Status.Right){
+            if(current_status == Status.Right){
+                current_status = Status.Right1;
+                this.image = Sprite.player_right_1;
+            }
+            else if (current_status == Status.Right1){
+                current_status = Status.Right2;
+                this.image = Sprite.player_right_2;
+            }
+            else{
                 current_status = Status.Right;
                 this.image = Sprite.player_right;
             }
@@ -38,7 +56,15 @@ public class Bomber extends Entity{
         }
 
         if (key == KeyCode.UP) {
-            if(current_status != Status.Up){
+            if(current_status == Status.Up){
+                current_status = Status.Up1;
+                this.image = Sprite.player_up_1;
+            }
+            else if (current_status == Status.Up1){
+                current_status = Status.Up2;
+                this.image = Sprite.player_up_2;
+            }
+            else{
                 current_status = Status.Up;
                 this.image = Sprite.player_up;
             }
@@ -46,7 +72,15 @@ public class Bomber extends Entity{
         }
 
         if (key == KeyCode.DOWN) {
-            if(current_status != Status.Down){
+            if(current_status == Status.Down){
+                current_status = Status.Down1;
+                this.image = Sprite.player_down_1;
+            }
+            else if (current_status == Status.Down1){
+                current_status = Status.Down2;
+                this.image = Sprite.player_down_2;
+            }
+            else{
                 current_status = Status.Down;
                 this.image = Sprite.player_down;
             }
