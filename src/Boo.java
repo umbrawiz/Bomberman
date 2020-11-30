@@ -59,6 +59,7 @@ public class Boo extends Application {
                 scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                     @Override
                     public void handle(KeyEvent event) {
+//                        stillObjects.set(1, new Grass(1,0,Sprite.grass));
                         bomber.keyPressed(event);
                     }
                 });
@@ -111,7 +112,7 @@ public class Boo extends Application {
                 stillObjects.add(object);
             }
         }
-
+        entities.add(bomber);
 
     }
 
@@ -123,6 +124,5 @@ public class Boo extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
-        bomber.render(gc);
     }
 }
