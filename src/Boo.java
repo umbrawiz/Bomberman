@@ -1,4 +1,6 @@
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -14,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import Entities.*;
 import Sprites.*;
+import javafx.util.Duration;
 
 
 import java.io.*;
@@ -118,11 +121,14 @@ public class Boo extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
+        bomber.bombs.forEach(g->g.update());
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        bomber.bombs.forEach(g->g.render(gc));
+
     }
 }
