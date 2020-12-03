@@ -1,4 +1,6 @@
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -14,6 +16,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import Entities.*;
 import Sprites.*;
+import javafx.util.Duration;
+import Map.*;
 
 
 import java.io.*;
@@ -25,13 +29,9 @@ import java.util.Scanner;
 
 public class Boo extends Application {
 
-    public static final int WIDTH = 24;
-    public static final int HEIGHT = 16;
     private GraphicsContext gc;
     private Canvas canvas;
-    private java.util.List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
-    private int[][] maps = new int[HEIGHT][WIDTH];
+    private Map map = new Map();
     Bomber bomber = new Bomber(1,1,Sprite.player_right);
 
 
@@ -60,7 +60,7 @@ public class Boo extends Application {
                     @Override
                     public void handle(KeyEvent event) {
 //                        stillObjects.set(1, new Grass(1,0,Sprite.grass));
-                        bomber.keyPressed(event);
+                        bomber.keyPressed(event,map);
                     }
                 });
                 render();
@@ -68,61 +68,23 @@ public class Boo extends Application {
             }
         };
         timer.start();
-
-        createMap();
-    }
-
-    public void readMapFromFile() throws IOException{
-        File map = new File("data/Map/map.txt");
-        FileReader fr=new FileReader(map);
-        BufferedReader br=new BufferedReader(fr);
-        Scanner sc = new Scanner(br);
-        while (sc.hasNextLine()){
-            for(int i = 0 ; i < HEIGHT ;i++){
-                String str = sc.nextLine();
-                for(int j = 0 ; j < WIDTH;j++){
-                    maps[i][j] = Character.getNumericValue(str.charAt(j));
-                }
-            }
-
-        }
+        map.createMap("data/Map/map.txt");
 
     }
 
-    public void createMap() throws FileNotFoundException {
-        try {
-            readMapFromFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        for (int i = 0; i < maps.length; i++) {
-            for (int j = 0; j < maps[i].length; j++) {
-                Entity object = null;
-                if(maps[i][j] == 0){
-                    object = new Wall(j, i,Sprite.wall);
-                }
-                else if(maps[i][j] == 1){
-                    object = new Grass(j, i,Sprite.grass);
-                }
-                else if(maps[i][j] == 2){
-                    object = new Brick(j, i,Sprite.brick);
-                }
-
-                stillObjects.add(object);
-            }
-        }
-        entities.add(bomber);
-
-    }
 
     public void update() {
-        entities.forEach(Entity::update);
+        map.entities.forEach(Entity::update);
+        bomber.bombs.forEach(g->g.update());
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        stillObjects.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
+        map.stillObjects.forEach(g -> g.render(gc));
+        map.entities.forEach(g -> g.render(gc));
+        bomber.bombs.forEach(g->g.render(gc));
+        bomber.render(gc);
+
     }
 }

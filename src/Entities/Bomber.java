@@ -5,10 +5,16 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import Map.*;
 
 public class Bomber extends Entity{
-    int movement_speed = 20;
+    private int movement_speed = 20;
     private Status current_status;
+    public List<Bomb> bombs = new ArrayList<>();
+
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
         this.current_status = Status.Left;
@@ -18,7 +24,7 @@ public class Bomber extends Entity{
         Up,Up1,Up2,Down,Down1,Down2,Left,Left1,Left2,Right,Right1,Right2;
     }
 
-    public void keyPressed(javafx.scene.input.KeyEvent e) {
+    public void keyPressed(javafx.scene.input.KeyEvent e, Map map) {
 
         KeyCode key = e.getCode();
 
@@ -36,7 +42,8 @@ public class Bomber extends Entity{
                 this.image = Sprite.player_left;
             }
 
-            this.pointX -= movement_speed;
+            this.posX -= movement_speed;
+            this.pointX = this.posX/SIZE;
         }
 
         if (key == KeyCode.RIGHT) {
@@ -52,7 +59,8 @@ public class Bomber extends Entity{
                 current_status = Status.Right;
                 this.image = Sprite.player_right;
             }
-            this.pointX += movement_speed;
+            this.posX += movement_speed;
+            this.pointX = this.posX/SIZE;
         }
 
         if (key == KeyCode.UP) {
@@ -68,7 +76,8 @@ public class Bomber extends Entity{
                 current_status = Status.Up;
                 this.image = Sprite.player_up;
             }
-            this.pointY -= movement_speed;
+            this.posY -= movement_speed;
+            this.pointY = this.posY/SIZE;
         }
 
         if (key == KeyCode.DOWN) {
@@ -84,13 +93,27 @@ public class Bomber extends Entity{
                 current_status = Status.Down;
                 this.image = Sprite.player_down;
             }
-            this.pointY += movement_speed;
+            this.posY += movement_speed;
+            this.pointY = this.posY/SIZE;
         }
+
+        collision(map);
+
+        if (key == KeyCode.SPACE) {
+            bombs.add(new Bomb(posX/50, posY/50, Sprite.bomb));
+        }
+
     }
 
+    private void collision(Map map){
+
+    }
 
     @Override
     public void update() {
+        if (bombs.size() != 0) {
+            bombs.removeIf(i -> i.exploded);
+        }
 
     }
 }
