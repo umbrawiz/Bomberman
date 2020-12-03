@@ -17,7 +17,10 @@ import javafx.stage.Stage;
 import Entities.*;
 import Sprites.*;
 import javafx.util.Duration;
+<<<<<<< HEAD
 import Map.*;
+=======
+>>>>>>> ca59877ae64840d8654510e2c3f7801210a22a17
 
 
 import java.io.*;
@@ -75,16 +78,26 @@ public class Boo extends Application {
 
 
     public void update() {
+<<<<<<< HEAD
         map.entities.forEach(Entity::update);
+=======
+        entities.forEach(Entity::update);
+>>>>>>> ca59877ae64840d8654510e2c3f7801210a22a17
         bomber.bombs.forEach(g->g.update());
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+<<<<<<< HEAD
         map.stillObjects.forEach(g -> g.render(gc));
         map.entities.forEach(g -> g.render(gc));
         bomber.bombs.forEach(g->g.render(gc));
         bomber.render(gc);
+=======
+        stillObjects.forEach(g -> g.render(gc));
+        entities.forEach(g -> g.render(gc));
+        bomber.bombs.forEach(g->g.render(gc));
+>>>>>>> ca59877ae64840d8654510e2c3f7801210a22a17
 
     }
 }

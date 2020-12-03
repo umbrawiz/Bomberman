@@ -7,8 +7,11 @@ import javafx.scene.input.KeyCode;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 
 import Map.*;
+=======
+>>>>>>> ca59877ae64840d8654510e2c3f7801210a22a17
 
 public class Bomber extends Entity{
     private int movement_speed = 20;
@@ -102,18 +105,35 @@ public class Bomber extends Entity{
         if (key == KeyCode.SPACE) {
             bombs.add(new Bomb(posX/50, posY/50, Sprite.bomb));
         }
+<<<<<<< HEAD
 
     }
 
     private void collision(Map map){
+=======
+
+        if (key == KeyCode.SPACE) {
+            bombs.add(new Bomb(pointX/50, pointY/50, Sprite.bomb));
+        }
+>>>>>>> ca59877ae64840d8654510e2c3f7801210a22a17
 
     }
 
     @Override
     public void update() {
         if (bombs.size() != 0) {
+<<<<<<< HEAD
             bombs.removeIf(i -> i.exploded);
         }
 
+=======
+//            if(bombs.get(0).timeTillEx == 0){
+//                bombs.get(0).pointX = -50;
+//                bombs.get(0).pointY = -50;
+//
+//            }
+//            bombs.removeIf(i -> i.exploded);
+        }
+>>>>>>> ca59877ae64840d8654510e2c3f7801210a22a17
     }
 }

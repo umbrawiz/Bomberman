@@ -43,7 +43,11 @@ public class Bomb extends Entity{
     public void explosion() {
         exploded = true;
         PassThru = true;
+<<<<<<< HEAD
         ex = new Explosion(posX, posY, Sprite.bomb_exploded);
+=======
+        ex = new Explosion(pointX, pointY, Sprite.bomb_exploded);
+>>>>>>> ca59877ae64840d8654510e2c3f7801210a22a17
         ex.creatExplosion();
 
     }
