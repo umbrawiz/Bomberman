@@ -118,32 +118,32 @@ public class Bomber extends Entity{
     }
 
     public boolean collision(Map map, int a){
-//        System.out.println(posX + "\t" +posY);
+        System.out.println(posX + "\t" +posY);
         switch (a) {
             case 1: //right
                 for (int i=0; i<map.walls.size(); i++) {
-                    if (posX + 40 == map.walls.get(i).posX && posY >= map.walls.get(i).posY && posY < map.walls.get(i).posY + 50) {
+                    if (posX + 40 == map.walls.get(i).posX && checkLR(posY, map.walls.get(i).posY)) {
                         return true;
                     }
                 }
                 break;
             case 2: //left
                 for (int i=0; i<map.walls.size(); i++) {
-                    if (posX - 50 == map.walls.get(i).posX && posY >= map.walls.get(i).posY && posY < map.walls.get(i).posY + 50) {
+                    if (posX - 50 == map.walls.get(i).posX && checkLR(posY, map.walls.get(i).posY)) {
                         return true;
                     }
                 }
                 break;
             case 3: // up
                 for (int i=0; i<map.walls.size(); i++) {
-                    if (posY - 50 == map.walls.get(i).posY && posX >= map.walls.get(i).posX && posX < map.walls.get(i).posX + 50) {
+                    if (posY - 50 == map.walls.get(i).posY && checkUD(posX, map.walls.get(i).posX)) {
                         return true;
                     }
                 }
                 break;
             case 4: //down
                 for (int i=0; i<map.walls.size(); i++) {
-                    if (posY + 50 == map.walls.get(i).posY && posX >= map.walls.get(i).posX && posX < map.walls.get(i).posX + 50) {
+                    if (posY + 50 == map.walls.get(i).posY && checkUD(posX, map.walls.get(i).posX)) {
                         return true;
                     }
                 }
@@ -152,6 +152,20 @@ public class Bomber extends Entity{
                 return false;
         }
         return false;
+    }
+
+    public boolean checkUD(int a, int b) {
+        if (a > b && a<b+50) {
+            return true;
+        }
+        return a + 40 > b && a + 40 < b + 50;
+    }
+
+    public boolean checkLR(int a, int b) {
+        if (a >= b && a < b+50) {
+            return true;
+        }
+        return a + 50 > b && a + 50 < b + 50;
     }
 
     @Override
