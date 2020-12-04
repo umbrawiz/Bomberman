@@ -46,6 +46,7 @@ public class Bomb extends Entity{
         ex = new Explosion(posX, posY, Sprite.bomb_exploded);
         ex.creatExplosion();
 
+
     }
 
 }
