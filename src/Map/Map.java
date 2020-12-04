@@ -59,6 +59,7 @@ public class Map {
                 }
                 else if(maps[i][j] == BRICK){
                     object = new Brick(j, i,Sprite.brick);
+                    walls.add(object);
                 }
 
                 stillObjects.add(object);
