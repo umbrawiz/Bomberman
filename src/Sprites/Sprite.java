@@ -16,6 +16,7 @@ public class Sprite{
     public static Image wall;
     public static Image brick;
     public static Image portal;
+    public static Image blank;
 
     	/*
 	|--------------------------------------------------------------------------
@@ -164,6 +165,7 @@ public class Sprite{
             wall = new Image(new FileInputStream("data/sprites/wall.png"));
             brick = new Image(new FileInputStream("data/sprites/brick.png"));
             portal = new Image(new FileInputStream("data/sprites/portal.png"));
+            blank  = new Image(new FileInputStream("data/sprites/blank.png"));
 
             player_up = new Image(new FileInputStream("data/sprites/player_up.png"));
             player_up_1 = new Image(new FileInputStream("data/sprites/player_up_1.png"));

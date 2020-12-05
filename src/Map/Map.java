@@ -1,9 +1,6 @@
 package Map;
 
-import Entities.Brick;
-import Entities.Entity;
-import Entities.Grass;
-import Entities.Wall;
+import Entities.*;
 import Sprites.Sprite;
 
 import java.io.*;
@@ -17,9 +14,15 @@ public class Map {
     public static final int WALL = 0;
     public static final int GRASS = 1;
     public static final int BRICK = 2;
+    public static final int BLANK = 3;
     public int[][] maps = new int[HEIGHT][WIDTH];
-    public java.util.List<Entity> entities = new ArrayList<>();
+    public List<Entity> entities = new ArrayList<>();
     public List<Entity> stillObjects = new ArrayList<>();
+    public List<Entity> walls = new ArrayList<>();
+    private int time = 200;
+    private int frame = 12000;
+
+
     public void readMapFromFile(String path) throws IOException {
         File map = new File(path);
         FileReader fr=new FileReader(map);
@@ -49,12 +52,18 @@ public class Map {
                 Entity object = null;
                 if(maps[i][j] == WALL){
                     object = new Wall(j, i, Sprite.wall);
+                    walls.add(object);
                 }
                 else if(maps[i][j] == GRASS){
                     object = new Grass(j, i,Sprite.grass);
                 }
                 else if(maps[i][j] == BRICK){
                     object = new Brick(j, i,Sprite.brick);
+                    walls.add(object);
+                }
+                else if(maps[i][j] == BLANK){
+                    object = new Blank(j, i,Sprite.blank);
+                    walls.add(object);
                 }
 
                 stillObjects.add(object);
@@ -68,5 +77,19 @@ public class Map {
 
     public static int getHEIGHT() {
         return HEIGHT;
+    }
+
+    public void update(){
+        if(frame > 0){
+            frame--;
+            if(frame %60 == 0){
+                time--;
+            }
+        }
+    }
+
+    public String getTime(){
+        String res = "" + this.time;
+        return res;
     }
 }

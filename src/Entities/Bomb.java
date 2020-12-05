@@ -7,12 +7,12 @@ import javafx.scene.image.Image;
 public class Bomb extends Entity{
     public double  timeTillEx = 120;
     public int exTime = 30;
-    protected boolean PassThru = true;
     protected boolean exploded = false;
     public int power = 0;
     public Explosion ex;
     public Bomb(int x, int y, Image img) {
         super( x, y, img);
+        passThru = false;
     }
     @Override
     public void update() {
@@ -42,7 +42,7 @@ public class Bomb extends Entity{
     }
     public void explosion() {
         exploded = true;
-        PassThru = true;
+//        PassThru = true;
         ex = new Explosion(posX, posY, Sprite.bomb_exploded);
         ex.creatExplosion();
 

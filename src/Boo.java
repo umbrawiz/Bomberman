@@ -3,6 +3,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -11,8 +12,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Entities.*;
 import Sprites.*;
@@ -32,7 +37,9 @@ public class Boo extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     private Map map = new Map();
-    Bomber bomber = new Bomber(1,1,Sprite.player_right);
+    Bomber bomber = new Bomber(1,2,Sprite.player_right);
+    Label time = new Label();
+    Font font = Font.loadFont("file:data/Font/text.TTF",24);
 
 
     public static void main(String[] args) {
@@ -47,8 +54,13 @@ public class Boo extends Application {
 
         Group root = new Group();
         root.getChildren().add(canvas);
+        root.getChildren().add(time);
+        time.setPrefHeight(50);
+        time.setTextFill(Color.WHITE);
+        time.setFont(font);
 
         Scene scene = new Scene(root);
+
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -65,6 +77,7 @@ public class Boo extends Application {
                 });
                 render();
                 update();
+
             }
         };
         timer.start();
@@ -77,6 +90,8 @@ public class Boo extends Application {
     public void update() {
         map.entities.forEach(Entity::update);
         bomber.bombs.forEach(g->g.update());
+        map.update();
+        time.setText("TIME " +map.getTime());
     }
 
     public void render() {

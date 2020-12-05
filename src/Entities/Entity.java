@@ -9,7 +9,7 @@ public abstract class Entity {
     protected int posY;
     protected int pointX;
     protected int pointY;
-
+    protected boolean passThru;
     protected int SIZE = 50;
 
     protected Image image;
