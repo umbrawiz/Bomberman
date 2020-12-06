@@ -2,9 +2,9 @@ package Entities;
 
 import javafx.scene.image.Image;
 
-public class Brick extends Entity{
+public class Brick extends Entity {
     public Brick(int x, int y, Image img) {
-        super( x, y, img);
+        super(x, y, img);
     }
 
     @Override

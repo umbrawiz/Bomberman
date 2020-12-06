@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Sprite{
+public class Sprite {
 
     /*
 	|--------------------------------------------------------------------------
@@ -159,13 +159,14 @@ public class Sprite{
     public static Image brick_exploded;
     public static Image brick_exploded1;
     public static Image brick_exploded2;
+
     static {
         try {
             grass = new Image(new FileInputStream("data/sprites/grass.png"));
             wall = new Image(new FileInputStream("data/sprites/wall.png"));
             brick = new Image(new FileInputStream("data/sprites/brick.png"));
             portal = new Image(new FileInputStream("data/sprites/portal.png"));
-            blank  = new Image(new FileInputStream("data/sprites/blank.png"));
+            blank = new Image(new FileInputStream("data/sprites/blank.png"));
 
             player_up = new Image(new FileInputStream("data/sprites/player_up.png"));
             player_up_1 = new Image(new FileInputStream("data/sprites/player_up_1.png"));
@@ -242,44 +243,44 @@ public class Sprite{
             mob_dead3 = new Image(new FileInputStream("data/sprites/mob_dead3.png"));
 
             powerup_bombpass = new Image(new FileInputStream("data/sprites/powerup_bombpass.png"));
-            powerup_bombs= new Image(new FileInputStream("data/sprites/powerup_bombs.png"));
-            powerup_detonator= new Image(new FileInputStream("data/sprites/powerup_detonator.png"));
-            powerup_flamepass= new Image(new FileInputStream("data/sprites/powerup_flamepass.png"));
-            powerup_flames= new Image(new FileInputStream("data/sprites/powerup_flames.png"));
-            powerup_speed= new Image(new FileInputStream("data/sprites/powerup_speed.png"));
-            powerup_wallpass= new Image(new FileInputStream("data/sprites/powerup_wallpass.png"));
+            powerup_bombs = new Image(new FileInputStream("data/sprites/powerup_bombs.png"));
+            powerup_detonator = new Image(new FileInputStream("data/sprites/powerup_detonator.png"));
+            powerup_flamepass = new Image(new FileInputStream("data/sprites/powerup_flamepass.png"));
+            powerup_flames = new Image(new FileInputStream("data/sprites/powerup_flames.png"));
+            powerup_speed = new Image(new FileInputStream("data/sprites/powerup_speed.png"));
+            powerup_wallpass = new Image(new FileInputStream("data/sprites/powerup_wallpass.png"));
 
             bomb = new Image(new FileInputStream("data/sprites/bomb.png"));
-            bomb1= new Image(new FileInputStream("data/sprites/bomb_1.png"));
-            bomb2= new Image(new FileInputStream("data/sprites/bomb_2.png"));
+            bomb1 = new Image(new FileInputStream("data/sprites/bomb_1.png"));
+            bomb2 = new Image(new FileInputStream("data/sprites/bomb_2.png"));
 
-            bomb_exploded= new Image(new FileInputStream("data/sprites/bomb_exploded.png"));
-            bomb_exploded1= new Image(new FileInputStream("data/sprites/bomb_exploded1.png"));
-            bomb_exploded2= new Image(new FileInputStream("data/sprites/bomb_exploded2.png"));
+            bomb_exploded = new Image(new FileInputStream("data/sprites/bomb_exploded.png"));
+            bomb_exploded1 = new Image(new FileInputStream("data/sprites/bomb_exploded1.png"));
+            bomb_exploded2 = new Image(new FileInputStream("data/sprites/bomb_exploded2.png"));
 
-            brick_exploded= new Image(new FileInputStream("data/sprites/brick_exploded.png"));
-            brick_exploded1= new Image(new FileInputStream("data/sprites/brick_exploded1.png"));
-            brick_exploded2= new Image(new FileInputStream("data/sprites/brick_exploded2.png"));
+            brick_exploded = new Image(new FileInputStream("data/sprites/brick_exploded.png"));
+            brick_exploded1 = new Image(new FileInputStream("data/sprites/brick_exploded1.png"));
+            brick_exploded2 = new Image(new FileInputStream("data/sprites/brick_exploded2.png"));
 
-            explosion_horizontal= new Image(new FileInputStream("data/sprites/explosion_horizontal.png"));
-            explosion_horizontal1= new Image(new FileInputStream("data/sprites/explosion_horizontal1.png"));
-            explosion_horizontal2= new Image(new FileInputStream("data/sprites/explosion_horizontal2.png"));
-            explosion_horizontal_left_last= new Image(new FileInputStream("data/sprites/explosion_horizontal_left_last.png"));
-            explosion_horizontal_left_last1= new Image(new FileInputStream("data/sprites/explosion_horizontal_left_last1.png"));
-            explosion_horizontal_left_last2= new Image(new FileInputStream("data/sprites/explosion_horizontal_left_last2.png"));
-            explosion_horizontal_right_last= new Image(new FileInputStream("data/sprites/explosion_horizontal_right_last.png"));
-            explosion_horizontal_right_last1= new Image(new FileInputStream("data/sprites/explosion_horizontal_right_last1.png"));
-            explosion_horizontal_right_last2= new Image(new FileInputStream("data/sprites/explosion_horizontal_right_last2.png"));
+            explosion_horizontal = new Image(new FileInputStream("data/sprites/explosion_horizontal.png"));
+            explosion_horizontal1 = new Image(new FileInputStream("data/sprites/explosion_horizontal1.png"));
+            explosion_horizontal2 = new Image(new FileInputStream("data/sprites/explosion_horizontal2.png"));
+            explosion_horizontal_left_last = new Image(new FileInputStream("data/sprites/explosion_horizontal_left_last.png"));
+            explosion_horizontal_left_last1 = new Image(new FileInputStream("data/sprites/explosion_horizontal_left_last1.png"));
+            explosion_horizontal_left_last2 = new Image(new FileInputStream("data/sprites/explosion_horizontal_left_last2.png"));
+            explosion_horizontal_right_last = new Image(new FileInputStream("data/sprites/explosion_horizontal_right_last.png"));
+            explosion_horizontal_right_last1 = new Image(new FileInputStream("data/sprites/explosion_horizontal_right_last1.png"));
+            explosion_horizontal_right_last2 = new Image(new FileInputStream("data/sprites/explosion_horizontal_right_last2.png"));
 
-            explosion_vertical= new Image(new FileInputStream("data/sprites/explosion_vertical.png"));
-            explosion_vertical1= new Image(new FileInputStream("data/sprites/explosion_vertical1.png"));
-            explosion_vertical2= new Image(new FileInputStream("data/sprites/explosion_vertical2.png"));
-            explosion_vertical_down_last= new Image(new FileInputStream("data/sprites/explosion_vertical_down_last.png"));
-            explosion_vertical_down_last1= new Image(new FileInputStream("data/sprites/explosion_vertical_down_last1.png"));
-            explosion_vertical_down_last2= new Image(new FileInputStream("data/sprites/explosion_vertical_down_last2.png"));
-            explosion_vertical_top_last= new Image(new FileInputStream("data/sprites/explosion_vertical_top_last.png"));
-            explosion_vertical_top_last1= new Image(new FileInputStream("data/sprites/explosion_vertical_top_last1.png"));
-            explosion_vertical_top_last2= new Image(new FileInputStream("data/sprites/explosion_vertical_top_last2.png"));
+            explosion_vertical = new Image(new FileInputStream("data/sprites/explosion_vertical.png"));
+            explosion_vertical1 = new Image(new FileInputStream("data/sprites/explosion_vertical1.png"));
+            explosion_vertical2 = new Image(new FileInputStream("data/sprites/explosion_vertical2.png"));
+            explosion_vertical_down_last = new Image(new FileInputStream("data/sprites/explosion_vertical_down_last.png"));
+            explosion_vertical_down_last1 = new Image(new FileInputStream("data/sprites/explosion_vertical_down_last1.png"));
+            explosion_vertical_down_last2 = new Image(new FileInputStream("data/sprites/explosion_vertical_down_last2.png"));
+            explosion_vertical_top_last = new Image(new FileInputStream("data/sprites/explosion_vertical_top_last.png"));
+            explosion_vertical_top_last1 = new Image(new FileInputStream("data/sprites/explosion_vertical_top_last1.png"));
+            explosion_vertical_top_last2 = new Image(new FileInputStream("data/sprites/explosion_vertical_top_last2.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

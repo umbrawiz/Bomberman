@@ -14,7 +14,7 @@ public abstract class Entity {
 
     protected Image image;
 
-    public Entity( int xUnit, int yUnit, Image img) {
+    public Entity(int xUnit, int yUnit, Image img) {
         this.posX = xUnit * SIZE;
         this.posY = yUnit * SIZE;
         this.pointX = xUnit;
@@ -25,6 +25,7 @@ public abstract class Entity {
     public void render(GraphicsContext gc) {
         gc.drawImage(image, posX, posY);
     }
+
     public abstract void update();
 
 }
