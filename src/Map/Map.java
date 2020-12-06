@@ -15,7 +15,7 @@ public class Map {
     public static final int BLANK = 3;
     private static final int WIDTH = 24;
     private static final int HEIGHT = 16;
-    public int[][] maps = new int[HEIGHT][WIDTH];
+    public Tile[][] maps = new Tile[HEIGHT][WIDTH];
     public List<Entity> entities = new ArrayList<>();
     public List<Entity> stillObjects = new ArrayList<>();
     public List<Entity> walls = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Map {
             for (int i = 0; i < HEIGHT; i++) {
                 String str = sc.nextLine();
                 for (int j = 0; j < WIDTH; j++) {
-                    maps[i][j] = Character.getNumericValue(str.charAt(j));
+                    maps[i][j] = new Tile(Character.getNumericValue(str.charAt(j)),false);
                 }
             }
 
@@ -49,15 +49,15 @@ public class Map {
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
                 Entity object = null;
-                if (maps[i][j] == WALL) {
+                if (maps[i][j].getType() == WALL) {
                     object = new Wall(j, i, Sprite.wall);
                     walls.add(object);
-                } else if (maps[i][j] == GRASS) {
+                } else if (maps[i][j].getType() == GRASS) {
                     object = new Grass(j, i, Sprite.grass);
-                } else if (maps[i][j] == BRICK) {
+                } else if (maps[i][j].getType() == BRICK) {
                     object = new Brick(j, i, Sprite.brick);
                     walls.add(object);
-                } else if (maps[i][j] == BLANK) {
+                } else if (maps[i][j].getType() == BLANK) {
                     object = new Blank(j, i, Sprite.blank);
                     walls.add(object);
                 }
