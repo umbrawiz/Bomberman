@@ -34,6 +34,9 @@ public class Bomb extends Entity {
                 Explosion ex = explosion(gc);
                 if(exTime > 0){
                     exTime--;
+                    if(exTime % 20 == 0){
+                        ex.flames.forEach(g->g.update());
+                    }
                     ex.flames.forEach(g->g.render(gc));
                 }else{
                     exploded = true;

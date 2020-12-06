@@ -75,6 +75,8 @@ public class Explosion extends Entity {
         return true;
     }
 
+
+
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);
