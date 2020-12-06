@@ -1,46 +1,28 @@
+import Entities.Bomber;
+import Entities.Entity;
+import Map.Map;
+import Sprites.Sprite;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import Entities.*;
-import Sprites.*;
-import javafx.util.Duration;
-import Map.*;
-
-
-import java.io.*;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Boo extends Application {
 
+    Bomber bomber = new Bomber(1, 2, Sprite.player_right);
+    Label time = new Label();
+    Font font = Font.loadFont("file:data/Font/text.TTF", 24);
     private GraphicsContext gc;
     private Canvas canvas;
     private Map map = new Map();
-    Bomber bomber = new Bomber(1,2,Sprite.player_right);
-    Label time = new Label();
-    Font font = Font.loadFont("file:data/Font/text.TTF",24);
-
 
     public static void main(String[] args) {
         Application.launch(Boo.class);
@@ -49,7 +31,7 @@ public class Boo extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Booo");
-        canvas = new Canvas(1200,800);
+        canvas = new Canvas(1200, 800);
         gc = canvas.getGraphicsContext2D();
 
         Group root = new Group();
@@ -72,7 +54,7 @@ public class Boo extends Application {
                     @Override
                     public void handle(KeyEvent event) {
 //                        stillObjects.set(1, new Grass(1,0,Sprite.grass));
-                        bomber.keyPressed(event,map);
+                        bomber.keyPressed(event, map);
                     }
                 });
                 render();
@@ -86,19 +68,18 @@ public class Boo extends Application {
     }
 
 
-
     public void update() {
         map.entities.forEach(Entity::update);
-        bomber.bombs.forEach(g->g.update());
+        bomber.bombs.forEach(g -> g.update1(gc));
         map.update();
-        time.setText("TIME " +map.getTime());
+        time.setText("TIME " + map.getTime());
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         map.stillObjects.forEach(g -> g.render(gc));
         map.entities.forEach(g -> g.render(gc));
-        bomber.bombs.forEach(g->g.render(gc));
+        bomber.bombs.forEach(g -> g.render(gc));
         bomber.render(gc);
 
     }

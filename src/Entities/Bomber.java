@@ -1,29 +1,22 @@
 package Entities;
 
+import Map.Map;
 import Sprites.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import Map.*;
-
 public class Bomber extends Entity {
-    private int movement_speed = 10;
-    private Status current_status;
     public List<Bomb> bombs = new ArrayList<>();
     public int check = -1;
+    private int movement_speed = 10;
+    private Status current_status;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
         this.current_status = Status.Left;
-    }
-
-    enum Status {
-        Up, Up1, Up2, Down, Down1, Down2, Left, Left1, Left2, Right, Right1, Right2;
     }
 
     public void keyPressed(javafx.scene.input.KeyEvent e, Map map) {
@@ -144,7 +137,7 @@ public class Bomber extends Entity {
 
 
         if (key == KeyCode.SPACE) {
-            bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb , map));
+            bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb, map));
         }
 
     }
@@ -251,5 +244,9 @@ public class Bomber extends Entity {
 //            bombs.removeIf(i -> i.exploded);
 //        }
 
+    }
+
+    enum Status {
+        Up, Up1, Up2, Down, Down1, Down2, Left, Left1, Left2, Right, Right1, Right2;
     }
 }
