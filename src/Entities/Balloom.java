@@ -2,18 +2,18 @@ package Entities;
 
 
 import java.util.Random;
+
 import javafx.scene.image.Image;
 
-public class Balloom extends Enemy{
+public class Balloom extends Enemy {
     private final static int Up = 1;
     private final static int Down = 2;
     private final static int Left = 3;
     private final static int Right = 4;
     private int current_direction;
-    private int movement_speed = 2;
-    private Random rand = new Random();
+    private final Random rand = new Random();
 
-    public Balloom(int x, int y, Image img , int current_direction) {
+    public Balloom(int x, int y, Image img, int current_direction) {
         super(x, y, img);
         this.current_direction = current_direction;
     }
@@ -25,29 +25,29 @@ public class Balloom extends Enemy{
 
     @Override
     public void update() {
+        int movement_speed = 2;
         current_direction = rand.nextInt(4) + 1;
-
-        switch (current_direction){
-            case Up:{
-                if(checkCol()){
+        switch (current_direction) {
+            case Up: {
+                if (checkCol()) {
                     this.posY -= movement_speed;
                 }
             }
 
-            case Down:{
-                if(checkCol()){
+            case Down: {
+                if (checkCol()) {
                     this.posY += movement_speed;
                 }
             }
 
-            case Left:{
-                if(checkCol()){
+            case Left: {
+                if (checkCol()) {
                     this.posX -= movement_speed;
                 }
             }
 
-            case Right:{
-                if(checkCol()){
+            case Right: {
+                if (checkCol()) {
                     this.posX += movement_speed;
                 }
             }

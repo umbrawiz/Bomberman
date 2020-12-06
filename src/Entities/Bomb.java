@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 public class Bomb extends Entity {
     public double timeTillEx = 120;
     public int exTime = 60;
-    public int power = 0;
+    public int power = 1;
     public Explosion ex;
     public Map map;
     protected boolean exploded = false;
@@ -31,14 +31,14 @@ public class Bomb extends Entity {
             this.posX = -50;
             this.posY = -50;
             if (!exploded) {
-                Explosion ex = explosion(gc);
-                if(exTime > 0){
+                Explosion ex = explosion();
+                if (exTime > 0) {
                     exTime--;
-                    if(exTime % 20 == 0){
-                        ex.flames.forEach(g->g.update());
+                    if (exTime % 20 == 0) {
+                        ex.flames.forEach(Flame::update);
                     }
-                    ex.flames.forEach(g->g.render(gc));
-                }else{
+                    ex.flames.forEach(g -> g.render(gc));
+                } else {
                     exploded = true;
                 }
 
@@ -47,12 +47,10 @@ public class Bomb extends Entity {
     }
 
 
-
-    public Explosion explosion(GraphicsContext gc) {
-//        exploded = true;
+    public Explosion explosion() {
 //        PassThru = true;
-        ex = new Explosion(pointX, pointY, Sprite.bomb_exploded, map);
-        ex.createExplosion(gc);
+        ex = new Explosion(pointX, pointY, Sprite.bomb_exploded, map, power);
+        ex.createExplosion();
         return ex;
 
     }

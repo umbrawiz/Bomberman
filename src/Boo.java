@@ -5,13 +5,12 @@ import Map.Map;
 import Sprites.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
+
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -27,13 +26,15 @@ public class Boo extends Application {
     Font font = Font.loadFont("file:data/Font/text.TTF", 24);
     private GraphicsContext gc;
     private Canvas canvas;
-    private Map map = new Map();
+    private final Map map = new Map();
     public List<Entity> bl = new ArrayList<>();
 
-    public static void main(String[] args) { Application.launch(Boo.class); }
+    public static void main(String[] args) {
+        Application.launch(Boo.class);
+    }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("Booo");
         canvas = new Canvas(1200, 800);
         gc = canvas.getGraphicsContext2D();
@@ -51,8 +52,8 @@ public class Boo extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Balloom balloom1 = new Balloom(22,2,Sprite.balloom_left1,3);
-        Balloom balloom2 = new Balloom(1,13,Sprite.balloom_right1,4);
+        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, 3);
+        Balloom balloom2 = new Balloom(1, 13, Sprite.balloom_right1, 4);
 
         bl.add(balloom1);
         bl.add(balloom2);
@@ -60,13 +61,7 @@ public class Boo extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-//                        stillObjects.set(1, new Grass(1,0,Sprite.grass));
-                        bomber.keyPressed(event, map);
-                    }
-                });
+                scene.setOnKeyPressed(event -> bomber.keyPressed(event, map));
                 render();
                 update();
 
@@ -85,7 +80,7 @@ public class Boo extends Application {
         bomber.update();
         map.update();
         time.setText("TIME " + map.getTime());
-        bl.forEach(g->g.update());
+        bl.forEach(Entity::update);
 
     }
 
@@ -95,7 +90,7 @@ public class Boo extends Application {
         map.entities.forEach(g -> g.render(gc));
         bomber.bombs.forEach(g -> g.render(gc));
         bomber.render(gc);
-        bl.forEach(g->g.render(gc));
+        bl.forEach(g -> g.render(gc));
 
     }
 }

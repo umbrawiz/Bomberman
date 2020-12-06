@@ -22,14 +22,6 @@ public class Map {
     private int time = 200;
     private int frame = 12000;
 
-    public static int getWIDTH() {
-        return WIDTH;
-    }
-
-    public static int getHEIGHT() {
-        return HEIGHT;
-    }
-
     public void readMapFromFile(String path) throws IOException {
         File map = new File(path);
         FileReader fr = new FileReader(map);
@@ -47,7 +39,7 @@ public class Map {
 
     }
 
-    public void createMap(String path) throws FileNotFoundException {
+    public void createMap(String path) {
         try {
             readMapFromFile(path);
         } catch (IOException e) {
@@ -85,7 +77,6 @@ public class Map {
     }
 
     public String getTime() {
-        String res = "" + this.time;
-        return res;
+        return "" + this.time;
     }
 }

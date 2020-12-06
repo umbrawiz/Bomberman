@@ -8,6 +8,7 @@ public abstract class Enemy extends Entity {
     }
 
     public abstract boolean checkCol();
+
     @Override
     public void update() {
 

@@ -9,16 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Explosion extends Entity {
-    protected int distance = 1;
+    protected int distance;
     protected Map map;
     List<Flame> flames = new ArrayList<>();
 
-    public Explosion(int xUnit, int yUnit, Image img, Map map) {
+    public Explosion(int xUnit, int yUnit, Image img, Map map, int power) {
         super(xUnit, yUnit, img);
         this.map = map;
+        this.distance = power;
     }
 
-    public void createExplosion(GraphicsContext gc) {
+    public void createExplosion() {
         flames.add(new Flame(pointX, pointY, image, 0));
         int xr = pointX + 1;
         int xl = pointX - 1;
@@ -74,7 +75,6 @@ public class Explosion extends Entity {
         }
         return true;
     }
-
 
 
     @Override

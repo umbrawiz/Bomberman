@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Bomber extends Entity {
     public List<Bomb> bombs = new ArrayList<>();
-    private int movement_speed = 10;
+    private final int movement_speed = 10;
     private Status current_status;
 
     public Bomber(int x, int y, Image img) {
@@ -243,6 +243,6 @@ public class Bomber extends Entity {
     }
 
     enum Status {
-        Up, Up1, Up2, Down, Down1, Down2, Left, Left1, Left2, Right, Right1, Right2;
+        Up, Up1, Up2, Down, Down1, Down2, Left, Left1, Left2, Right, Right1, Right2
     }
 }
