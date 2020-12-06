@@ -144,7 +144,7 @@ public class Bomber extends Entity {
 
 
         if (key == KeyCode.SPACE) {
-            bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb));
+            bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb , map));
         }
 
     }
@@ -247,9 +247,9 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
-        if (bombs.size() != 0) {
-            bombs.removeIf(i -> i.exploded);
-        }
+//        if (bombs.size() != 0) {
+//            bombs.removeIf(i -> i.exploded);
+//        }
 
     }
 }

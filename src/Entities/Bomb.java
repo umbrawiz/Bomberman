@@ -1,5 +1,6 @@
 package Entities;
 
+import Map.Map;
 import Sprites.Sprite;
 import javafx.scene.image.Image;
 
@@ -10,9 +11,11 @@ public class Bomb extends Entity{
     protected boolean exploded = false;
     public int power = 0;
     public Explosion ex;
-    public Bomb(int x, int y, Image img) {
+    public Map map;
+    public Bomb(int x, int y, Image img, Map map) {
         super( x, y, img);
         passThru = false;
+        this.map = map;
     }
     @Override
     public void update() {
@@ -43,8 +46,7 @@ public class Bomb extends Entity{
     public void explosion() {
         exploded = true;
 //        PassThru = true;
-        ex = new Explosion(posX, posY, Sprite.bomb_exploded);
-        ex.creatExplosion();
+        ex = new Explosion(posX, posY, Sprite.bomb_exploded, map);
 
     }
 
