@@ -24,7 +24,7 @@ public class Bomb extends Entity {
         if (timeTillEx > 0) {
             timeTillEx--;
             if (timeTillEx % 30 == 0) {
-                test();
+                update();
             }
 
         } else {
@@ -46,15 +46,7 @@ public class Bomb extends Entity {
         }
     }
 
-    private void test() {
-        if (image == Sprite.bomb) {
-            image = Sprite.bomb1;
-        } else if (image == Sprite.bomb1) {
-            image = Sprite.bomb2;
-        } else {
-            image = Sprite.bomb;
-        }
-    }
+
 
     public Explosion explosion(GraphicsContext gc) {
 //        exploded = true;
@@ -67,6 +59,12 @@ public class Bomb extends Entity {
 
     @Override
     public void update() {
-
+        if (image == Sprite.bomb) {
+            image = Sprite.bomb1;
+        } else if (image == Sprite.bomb1) {
+            image = Sprite.bomb2;
+        } else {
+            image = Sprite.bomb;
+        }
     }
 }

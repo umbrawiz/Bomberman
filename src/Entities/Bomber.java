@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Bomber extends Entity {
     public List<Bomb> bombs = new ArrayList<>();
-    public int check = -1;
     private int movement_speed = 10;
     private Status current_status;
 

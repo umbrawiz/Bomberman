@@ -1,3 +1,4 @@
+import Entities.Balloom;
 import Entities.Bomber;
 import Entities.Entity;
 import Map.Map;
@@ -15,18 +16,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Boo extends Application {
 
     Bomber bomber = new Bomber(1, 2, Sprite.player_right);
+
     Label time = new Label();
     Font font = Font.loadFont("file:data/Font/text.TTF", 24);
     private GraphicsContext gc;
     private Canvas canvas;
     private Map map = new Map();
+    public List<Entity> bl = new ArrayList<>();
 
-    public static void main(String[] args) {
-        Application.launch(Boo.class);
-    }
+    public static void main(String[] args) { Application.launch(Boo.class); }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -47,6 +51,12 @@ public class Boo extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        Balloom balloom1 = new Balloom(22,2,Sprite.balloom_left1,3);
+        Balloom balloom2 = new Balloom(1,13,Sprite.balloom_right1,4);
+
+        bl.add(balloom1);
+        bl.add(balloom2);
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -65,6 +75,7 @@ public class Boo extends Application {
         timer.start();
         map.createMap("data/Map/map.txt");
 
+
     }
 
 
@@ -74,6 +85,8 @@ public class Boo extends Application {
         bomber.update();
         map.update();
         time.setText("TIME " + map.getTime());
+        bl.forEach(g->g.update());
+
     }
 
     public void render() {
@@ -82,6 +95,7 @@ public class Boo extends Application {
         map.entities.forEach(g -> g.render(gc));
         bomber.bombs.forEach(g -> g.render(gc));
         bomber.render(gc);
+        bl.forEach(g->g.render(gc));
 
     }
 }
