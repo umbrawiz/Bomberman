@@ -46,8 +46,8 @@ public class Explosion extends Entity {
                 up = check(pointX, yu);
             }
             if (down) {
-                flames.add(new Flame(xr, pointY, Sprite.explosion_vertical, 2));
-                xr += 1;
+                flames.add(new Flame(pointX, yd, Sprite.explosion_vertical, 2));
+                yd += 1;
                 down = check(pointX, yd);
             }
         }
