@@ -52,10 +52,10 @@ public class Boo extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, 3);
-        Balloom balloom2 = new Balloom(1, 13, Sprite.balloom_right1, 4);
+//        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, map, 3);
+        Balloom balloom2 = new Balloom(1, 2, Sprite.balloom_right1, map, 4);
 
-        bl.add(balloom1);
+//        bl.add(balloom1);
         bl.add(balloom2);
 
         AnimationTimer timer = new AnimationTimer() {
