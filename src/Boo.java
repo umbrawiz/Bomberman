@@ -76,11 +76,12 @@ public class Boo extends Application {
 
     public void update() {
         map.entities.forEach(Entity::update);
-        bomber.bombs.forEach(g -> g.update1(gc));
+        bomber.bombs.forEach(g -> g.update1(gc,map));
         bomber.update();
         map.update();
         time.setText("TIME " + map.getTime());
         bl.forEach(Entity::update);
+        bomber.alive(map);
 
     }
 

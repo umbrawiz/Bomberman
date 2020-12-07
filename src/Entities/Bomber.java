@@ -12,6 +12,8 @@ public class Bomber extends Entity {
     public List<Bomb> bombs = new ArrayList<>();
     private final int movement_speed = 10;
     private Status current_status;
+    public boolean alive = true;
+    private int dTime = 90;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -235,6 +237,29 @@ public class Bomber extends Entity {
             return true;
         }
         return a + 50 > b && a + 50 < b + 50;
+    }
+
+    public void alive(Map map){
+        if(map.maps[pointX][pointY].exploding == true){
+            alive = false;
+            deadAnimation();
+        }
+    }
+
+    public void deadAnimation(){
+        this.image = Sprite.player_dead1;
+        if(dTime > 0){
+            dTime--;
+            if(dTime % 60 == 0){
+                if(image == Sprite.player_dead1){
+                    image = Sprite.player_dead2;
+                }
+                else if(image == Sprite.player_dead2){
+                    image = Sprite.player_dead3;
+                }
+            }
+        }
+
     }
 
     @Override

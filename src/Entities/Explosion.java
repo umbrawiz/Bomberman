@@ -19,7 +19,7 @@ public class Explosion extends Entity {
         this.distance = power;
     }
 
-    public void createExplosion() {
+    public void createExplosion(Map map) {
         flames.add(new Flame(pointX, pointY, image, 0));
         int xr = pointX + 1;
         int xl = pointX - 1;
@@ -33,36 +33,44 @@ public class Explosion extends Entity {
         for (int i = 0; i < distance; i++) {
             if (right) {
                 flames.add(new Flame(xr, pointY, Sprite.explosion_horizontal, 1));
+                map.maps[xr][pointY].Exploding();
                 xr += 1;
                 right = check(xr, pointY);
             }
             if (left) {
                 flames.add(new Flame(xl, pointY, Sprite.explosion_horizontal, 1));
+                map.maps[xl][pointY].Exploding();
                 xl -= 1;
                 left = check(xl, pointY);
             }
             if (up) {
                 flames.add(new Flame(pointX, yu, Sprite.explosion_vertical, 2));
+                map.maps[pointX][yu].Exploding();
                 yu -= 1;
                 up = check(pointX, yu);
             }
             if (down) {
                 flames.add(new Flame(pointX, yd, Sprite.explosion_vertical, 2));
+                map.maps[pointX][yd].Exploding();
                 yd += 1;
                 down = check(pointX, yd);
             }
         }
         if (left) {
             flames.add(new Flame(xl, pointY, Sprite.explosion_horizontal_left_last, 3));
+            map.maps[xl][pointY].Exploding();
         }
         if (right) {
             flames.add(new Flame(xr, pointY, Sprite.explosion_horizontal_right_last, 4));
+            map.maps[xr][pointY].Exploding();
         }
         if (up) {
             flames.add(new Flame(pointX, yu, Sprite.explosion_vertical_top_last, 5));
+            map.maps[pointX][yu].Exploding();
         }
         if (down) {
             flames.add(new Flame(pointX, yd, Sprite.explosion_vertical_down_last, 6));
+            map.maps[pointX][yd].Exploding();
         }
 
     }

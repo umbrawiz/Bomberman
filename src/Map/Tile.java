@@ -2,14 +2,24 @@ package Map;
 
 public class Tile {
     int type;
-    boolean sthhere ;
+    public boolean exploding ;
 
-     Tile(int type, boolean sthhere){
+     Tile(int type, boolean exploding){
         this.type = type;
-        this.sthhere = sthhere;
+        this.exploding = false;
     }
 
     public int getType() {
         return type;
     }
+
+    public void Exploding(){
+        exploding = true;
+    }
+
+    public void notExploding(){
+        exploding = false;
+    }
+
+
 }

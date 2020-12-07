@@ -76,6 +76,14 @@ public class Map {
         }
     }
 
+    public void reset(){
+        for (int i = 0 ; i < maps.length;i++){
+            for (int j = 0 ; j < maps[i].length;j++){
+                maps[i][j].notExploding();
+            }
+        }
+    }
+
     public String getTime() {
         return "" + this.time;
     }

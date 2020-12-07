@@ -28,6 +28,8 @@ public class Flame extends Entity {
                     this.image = Sprite.bomb_exploded1;
                 } else if (this.image == Sprite.bomb_exploded1) {
                     this.image = Sprite.bomb_exploded2;
+                }else if (this.image == Sprite.bomb_exploded2){
+                    image = null;
                 }
             }
 
@@ -36,6 +38,8 @@ public class Flame extends Entity {
                     this.image = Sprite.explosion_horizontal1;
                 } else if (this.image == Sprite.explosion_horizontal1) {
                     this.image = Sprite.explosion_horizontal2;
+                }else if (this.image == Sprite.explosion_horizontal2){
+                    image = null;
                 }
             }
 
@@ -44,6 +48,8 @@ public class Flame extends Entity {
                     this.image = Sprite.explosion_vertical1;
                 } else if (this.image == Sprite.explosion_vertical1) {
                     this.image = Sprite.explosion_vertical2;
+                }else if (this.image == Sprite.explosion_vertical2){
+                    image = null;
                 }
             }
 
@@ -52,6 +58,8 @@ public class Flame extends Entity {
                     this.image = Sprite.explosion_horizontal_left_last1;
                 } else if (this.image == Sprite.explosion_horizontal_left_last1) {
                     this.image = Sprite.explosion_horizontal_left_last2;
+                }else if (this.image == Sprite.explosion_horizontal_left_last2){
+                    image = null;
                 }
             }
 
@@ -60,6 +68,8 @@ public class Flame extends Entity {
                     this.image = Sprite.explosion_horizontal_right_last1;
                 } else if (this.image == Sprite.explosion_horizontal_right_last1) {
                     this.image = Sprite.explosion_horizontal_right_last2;
+                }else if (this.image == Sprite.explosion_horizontal_right_last2){
+                    image = null;
                 }
             }
 
@@ -68,6 +78,8 @@ public class Flame extends Entity {
                     this.image = Sprite.explosion_vertical_top_last1;
                 } else if (this.image == Sprite.explosion_vertical_top_last1) {
                     this.image = Sprite.explosion_vertical_top_last2;
+                }else if (this.image == Sprite.explosion_vertical_top_last2){
+                    image = null;
                 }
             }
 
@@ -76,6 +88,8 @@ public class Flame extends Entity {
                     this.image = Sprite.explosion_vertical_down_last1;
                 } else if (this.image == Sprite.explosion_vertical_down_last1) {
                     this.image = Sprite.explosion_vertical_down_last2;
+                }else if (this.image == Sprite.explosion_vertical_down_last2){
+                    image = null;
                 }
             }
         }

@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
 
 public class Bomb extends Entity {
     public double timeTillEx = 120;
-    public int exTime = 60;
-    public int power = 1;
+    public int exTime = 90;
+    public int power = 2;
     public Explosion ex;
     public Map map;
     protected boolean exploded = false;
@@ -20,7 +20,7 @@ public class Bomb extends Entity {
         this.map = map;
     }
 
-    public void update1(GraphicsContext gc) {
+    public void update1(GraphicsContext gc, Map map) {
         if (timeTillEx > 0) {
             timeTillEx--;
             if (timeTillEx % 30 == 0) {
@@ -30,16 +30,18 @@ public class Bomb extends Entity {
         } else {
             this.posX = -50;
             this.posY = -50;
+            map.maps[pointX][pointY].Exploding();
             if (!exploded) {
-                Explosion ex = explosion();
+                Explosion ex = explosion(map);
                 if (exTime > 0) {
                     exTime--;
-                    if (exTime % 20 == 0) {
+                    if (exTime == 60 || exTime == 30) {
                         ex.flames.forEach(Flame::update);
                     }
                     ex.flames.forEach(g -> g.render(gc));
                 } else {
                     exploded = true;
+                    map.reset();
                 }
 
             }
@@ -47,10 +49,10 @@ public class Bomb extends Entity {
     }
 
 
-    public Explosion explosion() {
+    public Explosion explosion(Map map) {
 //        PassThru = true;
         ex = new Explosion(pointX, pointY, Sprite.bomb_exploded, map, power);
-        ex.createExplosion();
+        ex.createExplosion(map);
         return ex;
 
     }
