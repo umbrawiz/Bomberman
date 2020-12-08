@@ -30,7 +30,7 @@ public class Bomb extends Entity {
         } else {
             this.posX = -50;
             this.posY = -50;
-            map.maps[pointX][pointY].Exploding();
+            map.maps[pointY][pointX].Exploding();
             if (!exploded) {
                 Explosion ex = explosion(map);
                 if (exTime > 0) {
