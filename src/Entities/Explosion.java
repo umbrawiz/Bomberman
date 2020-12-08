@@ -20,7 +20,6 @@ public class Explosion extends Entity {
     }
 
     public void createExplosion(Map map) {
-        System.out.println("Hohoho");
         flames.add(new Flame(pointX, pointY, image, 0));
         int xr = pointX + 1;
         int xl = pointX - 1;
@@ -30,7 +29,6 @@ public class Explosion extends Entity {
         boolean right = check(xr, pointY);
         boolean up = check(pointX, yu);
         boolean down = check(pointX, yd);
-        System.out.println(right);
         if (!right) {
             meetB(xr, pointY);
         }
@@ -43,9 +41,7 @@ public class Explosion extends Entity {
         if (!down) {
             meetB(pointX, yd);
         }
-        System.out.println(right);
         for (int j = 0; j < distance; j++) {
-            System.out.println(right);
             if (right) {
                 Flame fl = new Flame(xr, pointY, Sprite.explosion_horizontal, 1);
                 flames.add(fl);
