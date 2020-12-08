@@ -72,8 +72,9 @@ public class Boo extends Application {
         BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, map.bomber);
         map.powerUps.add(pu);
 //        bl.add(balloom1);
+        Oneal oneal = new Oneal(3, 6, Sprite.oneal_right1, map, 4);
         map.enemies.add(balloom2);
-
+        map.enemies.add(oneal);
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
