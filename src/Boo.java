@@ -50,7 +50,7 @@ public class Boo extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
+        map.grasses.forEach(g->g.render(gc));
 //        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, map, 3);
         Balloom balloom2 = new Balloom(1, 2, Sprite.balloom_right1, map, 4);
         BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, bomber);
@@ -70,7 +70,6 @@ public class Boo extends Application {
         timer.start();
         map.createMap("data/Map/map.txt");
 
-
     }
 
 
@@ -88,8 +87,8 @@ public class Boo extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        map.stillObjects.forEach(g -> g.render(gc));
         map.entities.forEach(g -> g.render(gc));
+        map.stillObjects.forEach(g -> g.render(gc));
         bomber.bombs.forEach(g -> g.render(gc));
         bomber.render(gc);
         bl.forEach(g -> g.render(gc));

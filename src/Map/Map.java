@@ -16,9 +16,11 @@ public class Map {
     private static final int WIDTH = 24;
     private static final int HEIGHT = 16;
     public Tile[][] maps = new Tile[HEIGHT][WIDTH];
+    public List<Entity> grasses = new ArrayList<>();
     public List<Entity> entities = new ArrayList<>();
     public List<Entity> stillObjects = new ArrayList<>();
     public List<Entity> walls = new ArrayList<>();
+    public List<Entity> bricks = new ArrayList<>();
     private int time = 200;
     private int frame = 12000;
 
@@ -44,6 +46,14 @@ public class Map {
             readMapFromFile(path);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                Entity object = null;
+                object = new Grass(j,i,Sprite.grass);
+                grasses.add(object);
+            }
         }
 
         for (int i = 0; i < HEIGHT; i++) {
