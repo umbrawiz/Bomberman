@@ -14,6 +14,7 @@ public class Bomber extends Entity {
     private Status current_status;
     public boolean alive = true;
     private int dTime = 90;
+    public int bombsPU=1;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -138,9 +139,20 @@ public class Bomber extends Entity {
 
         System.out.println(pointX + "\t" + pointY);
         if (key == KeyCode.SPACE) {
-            bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb, map));
+            if (bombsPU > bombs.size() && checkB(posX / 50, posY / 50)) {
+                bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb, map));
+            }
         }
 
+    }
+
+    public boolean checkB(int a, int b) {
+        for (int i=0; i<bombs.size(); i++) {
+            if (a == bombs.get(i).pointX && b == bombs.get(i).pointY) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int smartMovement(Map map, int a) {
