@@ -2,6 +2,7 @@ package Entities;
 
 import Map.Map;
 import Sprites.Sprite;
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -20,6 +21,7 @@ public class Explosion extends Entity {
     }
 
     public void createExplosion(Map map) {
+        System.out.println("Hohoho");
         flames.add(new Flame(pointX, pointY, image, 0));
         int xr = pointX + 1;
         int xl = pointX - 1;
@@ -29,6 +31,7 @@ public class Explosion extends Entity {
         boolean right = check(xr, pointY);
         boolean up = check(pointX, yu);
         boolean down = check(pointX, yd);
+        System.out.println(right);
         if (!right) {
             meetB(xr, pointY);
         }
@@ -41,7 +44,9 @@ public class Explosion extends Entity {
         if (!down) {
             meetB(pointX, yd);
         }
+        System.out.println(right);
         for (int j = 0; j < distance; j++) {
+            System.out.println(right);
             if (right) {
                 Flame fl = new Flame(xr, pointY, Sprite.explosion_horizontal, 1);
                 flames.add(fl);
@@ -149,10 +154,27 @@ public class Explosion extends Entity {
                 if (map.walls.get(i).pointX == x && map.walls.get(i).pointY == y) {
                     System.out.println("cringe");
                     Entity obj = map.walls.get(i);
+                    Brick current_brick = (Brick)obj;
+                    current_brick.broken = true;
                     map.walls.remove(obj);
                     map.stillObjects.remove(obj);
                     Entity newGrass = new Grass(x, y, Sprite.grass);
                     map.stillObjects.add(newGrass);
+                }
+            }
+        } else if (map.maps[y][x].getType() == 5) {
+            for (int i = 0; i < map.walls.size(); i++) {
+                if (map.walls.get(i).pointX == x && map.walls.get(i).pointY == y) {
+                    System.out.println("cringeee");
+                    Entity obj = map.walls.get(i);
+                    Entity newGrass = new Grass(x, y, Sprite.grass);
+                    map.stillObjects.add(newGrass);
+                    FPBrick current_brick = (FPBrick) obj;
+                    current_brick.broken = true;
+                    FlamesPU newPU = current_brick.getPowerup();
+                    map.powerUps.add(newPU);
+                    map.walls.remove(obj);
+                    map.stillObjects.remove(obj);
                 }
             }
         }
@@ -164,6 +186,7 @@ public class Explosion extends Entity {
                     Entity newGrass = new Grass(x, y, Sprite.grass);
                     map.stillObjects.add(newGrass);
                     BPBrick current_brick = (BPBrick)obj;
+                    current_brick.broken = true;
                     BombsPU newPU = current_brick.getPowerup();
                     map.powerUps.add(newPU);
                     map.walls.remove(obj);

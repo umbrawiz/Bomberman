@@ -15,6 +15,7 @@ public class Map {
     public static final int BRICK = 2;
     public static final int BLANK = 3;
     public static final int BombsPU = 4;
+    public static final int FlamesPU = 5;
     private static final int WIDTH = 24;
     private static final int HEIGHT = 16;
     public Tile[][] maps = new Tile[HEIGHT][WIDTH];
@@ -80,7 +81,10 @@ public class Map {
                     BombsPU pu = new BombsPU(j,i,Sprite.powerup_bombs,bomber);
                     object = new BPBrick(j, i, Sprite.brick,pu);
                     walls.add(object);
-                    bricks.add(object);
+                }else if (maps[i][j].getType() == FlamesPU) {
+                    FlamesPU pu = new FlamesPU(j,i,Sprite.powerup_flames,bomber);
+                    object = new FPBrick(j, i, Sprite.brick,pu);
+                    walls.add(object);
                 }
 
                 stillObjects.add(object);

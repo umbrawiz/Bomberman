@@ -5,9 +5,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 
 public class Brick extends Entity {
-    private int bTime = 1200;
+    public int bTime = 120;
     public boolean broken = false;
-    public boolean done = false;
 
     public Brick(int x, int y, Image img) {
         super(x, y, img);
@@ -15,7 +14,6 @@ public class Brick extends Entity {
 
 
     public void breakAnimation(){
-        broken = true;
         this.image = Sprite.brick_exploded;
         System.out.println("Test");
         if(bTime > 0){
@@ -28,7 +26,7 @@ public class Brick extends Entity {
                 }
             }
         }else {
-            done = true;
+            broken = false;
         }
     }
     @Override

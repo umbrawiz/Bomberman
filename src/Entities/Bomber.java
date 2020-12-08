@@ -14,7 +14,8 @@ public class Bomber extends Entity {
     private Status current_status;
     public boolean alive = true;
     private int dTime = 90;
-    public int bombsPU=1;
+    public int bombsPU= 1;
+    public int power = 0;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -139,7 +140,7 @@ public class Bomber extends Entity {
 
         if (key == KeyCode.SPACE) {
             if (bombsPU > bombs.size() && checkB(posX / 50, posY / 50)) {
-                bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb, map));
+                bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb, map,power));
             }
         }
 

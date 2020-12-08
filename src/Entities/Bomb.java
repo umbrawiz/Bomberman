@@ -9,15 +9,16 @@ import javafx.scene.image.Image;
 public class Bomb extends Entity {
     public double timeTillEx = 140;
     public int exTime = 39;
-    public int power = 2;
     public Map map;
     public Explosion ex;
+    private int power;
     protected boolean exploded = false;
 
-    public Bomb(int x, int y, Image img, Map map) {
+    public Bomb(int x, int y, Image img, Map map,int power) {
         super(x, y, img);
         passThru = false;
         this.map = map;
+        this.power = power;
     }
 
     public void update1(GraphicsContext gc, Map map) {
