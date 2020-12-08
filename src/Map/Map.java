@@ -68,6 +68,7 @@ public class Map {
                 } else if (maps[i][j].getType() == BRICK) {
                     object = new Brick(j, i, Sprite.brick);
                     walls.add(object);
+                    bricks.add(object);
                 } else if (maps[i][j].getType() == BLANK) {
                     object = new Blank(j, i, Sprite.blank);
                     walls.add(object);
