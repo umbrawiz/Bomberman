@@ -45,8 +45,6 @@ public class Explosion extends Entity {
                             map.stillObjects.remove(obj);
                             Entity newGrass = new Grass(xr,pointY,Sprite.grass);
                             map.stillObjects.add(newGrass);
-
-
                         }
                     }
                 }else {
@@ -61,9 +59,14 @@ public class Explosion extends Entity {
                 if(map.maps[pointY][xl].getType() == 2){
                     for(int i = 0 ; i < map.walls.size();i++){
                         if(map.walls.get(i).pointX == xl && map.walls.get(i).pointY == pointY){
-                            System.out.println("cringe");
-                            map.walls.get(i).tograss();
                             left = false;
+                            System.out.println("cringe");
+                            Entity obj = map.walls.get(i);
+                            map.walls.remove(obj);
+                            map.stillObjects.remove(obj);
+                            Entity newGrass = new Grass(xl,pointY,Sprite.grass);
+                            map.stillObjects.add(newGrass);
+
                         }
                     }
                 }else{
@@ -79,9 +82,13 @@ public class Explosion extends Entity {
                 if(map.maps[yu][pointX].getType() == 2){
                     for(int i = 0 ; i < map.walls.size();i++){
                         if(map.walls.get(i).pointX == pointX && map.walls.get(i).pointY == yu){
-                            System.out.println("cringe");
-                            map.walls.get(i).tograss();
                             up = false;
+                            System.out.println("cringe");
+                            Entity obj = map.walls.get(i);
+                            map.walls.remove(obj);
+                            map.stillObjects.remove(obj);
+                            Entity newGrass = new Grass(pointX,yu,Sprite.grass);
+                            map.stillObjects.add(newGrass);
                         }
                     }
                 }else{
@@ -96,9 +103,13 @@ public class Explosion extends Entity {
                 if(map.maps[yd][pointX].getType() == 2){
                     for(int i = 0 ; i < map.walls.size();i++){
                         if(map.walls.get(i).pointX == pointX && map.walls.get(i).pointY == yd){
-                            System.out.println("cringe");
-                            map.walls.get(i).tograss();
                             down = false;
+                            System.out.println("cringe");
+                            Entity obj = map.walls.get(i);
+                            map.walls.remove(obj);
+                            map.stillObjects.remove(obj);
+                            Entity newGrass = new Grass(pointX,yd,Sprite.grass);
+                            map.stillObjects.add(newGrass);
                         }
                     }
                 }else{

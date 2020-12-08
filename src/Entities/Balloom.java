@@ -4,6 +4,7 @@ package Entities;
 import java.util.Random;
 
 import Map.Map;
+import Sprites.Sprite;
 import javafx.scene.image.Image;
 
 public class Balloom extends Enemy {
@@ -15,6 +16,8 @@ public class Balloom extends Enemy {
     private final Random rand = new Random();
     private int movement_speed = 2;
     private int step = 0;
+    private int dTime = 120;
+    private boolean isAlive = true;
     public Balloom(int x, int y, Image img, Map map, int current_direction) {
         super(x, y, img, map);
         this.current_direction = current_direction;
@@ -88,43 +91,71 @@ public class Balloom extends Enemy {
         return a + 50 > b && a + 50 < b + 50;
     }
 
-    @Override
-    public void update() {
-        if (step == 0 || !checkCol()) {
-            current_direction = rand.nextInt(4) + 1;
-            step = 50;
-        } else {
-            step--;
+    public void alive(Map map){
+        if(map.maps[pointY][pointX].exploding == true){
+            isAlive = false;
+            deadAnimation();
         }
-        switch (current_direction) {
-            case Up: {
-                if (checkCol()) {
-                    this.posY -= movement_speed;
-                }
-                break;
-            }
+    }
 
-            case Down: {
-                if (checkCol()) {
-                    this.posY += movement_speed;
+    public void deadAnimation(){
+        this.image = Sprite.balloom_dead;
+        if(dTime > 0){
+            dTime--;
+            if(dTime % 40 == 0){
+                if(image == Sprite.balloom_dead){
+                    image = Sprite.mob_dead1;
                 }
-                break;
-            }
-
-            case Left: {
-                if (checkCol()) {
-                    this.posX -= movement_speed;
+                else if(image == Sprite.mob_dead1){
+                    image = Sprite.mob_dead2;
+                }else if(image == Sprite.mob_dead2){
+                    image = Sprite.mob_dead3;
                 }
-                break;
-            }
-
-            case Right: {
-                if (checkCol()) {
-                    this.posX += movement_speed;
-                }
-                break;
             }
         }
 
     }
+
+    @Override
+    public void update() {
+        if(isAlive){
+            if (step == 0 || !checkCol()) {
+                current_direction = rand.nextInt(4) + 1;
+                step = 50;
+            } else {
+                step--;
+            }
+            switch (current_direction) {
+                case Up: {
+                    if (checkCol()) {
+                        this.posY -= movement_speed;
+                    }
+                    break;
+                }
+
+                case Down: {
+                    if (checkCol()) {
+                        this.posY += movement_speed;
+                    }
+                    break;
+                }
+
+                case Left: {
+                    if (checkCol()) {
+                        this.posX -= movement_speed;
+                    }
+                    break;
+                }
+
+                case Right: {
+                    if (checkCol()) {
+                        this.posX += movement_speed;
+                    }
+                    break;
+                }
+            }
+
+        }
+        }
+
 }

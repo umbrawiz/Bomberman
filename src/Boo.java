@@ -11,10 +11,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +31,9 @@ public class Boo extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     private final Map map = new Map();
-    public List<Entity> bl = new ArrayList<>();
+    public List<Balloom> bl = new ArrayList<>();
+    public static MediaPlayer mediaPlayer;
+
 
     public static void main(String[] args) {
         Application.launch(Boo.class);
@@ -45,6 +51,16 @@ public class Boo extends Application {
         time.setPrefHeight(50);
         time.setTextFill(Color.WHITE);
         time.setFont(font);
+
+        Media media = new Media(new File("data/Music/main.mp3").toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                mediaPlayer.seek(Duration.ZERO);
+            }
+        });
+        mediaPlayer.play();
 
         Scene scene = new Scene(root);
 
@@ -81,6 +97,8 @@ public class Boo extends Application {
         time.setText("TIME " + map.getTime());
         bl.forEach(Entity::update);
         bomber.alive(map);
+        bl.forEach(g->g.alive(map));
+        map.bricks.forEach(Entity::update);
 
     }
 
