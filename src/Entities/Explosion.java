@@ -30,28 +30,61 @@ public class Explosion extends Entity {
         boolean up = check(pointX, yu);
         boolean down = check(pointX, yd);
 
-        for (int i = 0; i < distance; i++) {
+        for (int j = 0; j < distance; j++) {
             if (right) {
                 flames.add(new Flame(xr, pointY, Sprite.explosion_horizontal, 1));
                 map.maps[pointY][xr].Exploding();
+                if(map.maps[pointY][xr].getType() == 2){
+                    for(int i = 0 ; i < map.walls.size();i++){
+                        if(map.walls.get(i).pointX == xr && map.walls.get(i).pointY == pointY){
+                            System.out.println("cringe");
+                            map.walls.get(i).tograss();
+                        }
+                    }
+                }
                 xr += 1;
                 right = check(xr, pointY);
             }
             if (left) {
                 flames.add(new Flame(xl, pointY, Sprite.explosion_horizontal, 1));
                 map.maps[pointY][xl].Exploding();
+                if(map.maps[pointY][xl].getType() == 2){
+                    for(int i = 0 ; i < map.walls.size();i++){
+                        if(map.walls.get(i).pointX == xl && map.walls.get(i).pointY == pointY){
+                            System.out.println("cringe");
+                            map.walls.get(i).tograss();
+                        }
+                    }
+                }
+
                 xl -= 1;
                 left = check(xl, pointY);
             }
             if (up) {
                 flames.add(new Flame(pointX, yu, Sprite.explosion_vertical, 2));
                 map.maps[yu][pointX].Exploding();
+                if(map.maps[yu][pointX].getType() == 2){
+                    for(int i = 0 ; i < map.walls.size();i++){
+                        if(map.walls.get(i).pointX == pointX && map.walls.get(i).pointY == yu){
+                            System.out.println("cringe");
+                            map.walls.get(i).tograss();
+                        }
+                    }
+                }
                 yu -= 1;
                 up = check(pointX, yu);
             }
             if (down) {
                 flames.add(new Flame(pointX, yd, Sprite.explosion_vertical, 2));
                 map.maps[yd][pointX].Exploding();
+                if(map.maps[yd][pointX].getType() == 2){
+                    for(int i = 0 ; i < map.walls.size();i++){
+                        if(map.walls.get(i).pointX == pointX && map.walls.get(i).pointY == yd){
+                            System.out.println("cringe");
+                            map.walls.get(i).tograss();
+                        }
+                    }
+                }
                 yd += 1;
                 down = check(pointX, yd);
             }
@@ -59,25 +92,57 @@ public class Explosion extends Entity {
         if (left) {
             flames.add(new Flame(xl, pointY, Sprite.explosion_horizontal_left_last, 3));
             map.maps[pointY][xl].Exploding();
+            if(map.maps[pointY][xl].getType() == 2){
+                for(int i = 0 ; i < map.walls.size();i++){
+                    if(map.walls.get(i).pointX == xl && map.walls.get(i).pointY == pointY){
+                        System.out.println("cringe");
+                        map.walls.get(i).tograss();
+                    }
+                }
+            }
         }
         if (right) {
             flames.add(new Flame(xr, pointY, Sprite.explosion_horizontal_right_last, 4));
             map.maps[pointY][xr].Exploding();
+            if(map.maps[pointY][xr].getType() == 2){
+                for(int i = 0 ; i < map.walls.size();i++){
+                    if(map.walls.get(i).pointX == xr && map.walls.get(i).pointY == pointY){
+                        System.out.println("cringe");
+                        map.walls.get(i).tograss();
+                    }
+                }
+            }
         }
         if (up) {
             flames.add(new Flame(pointX, yu, Sprite.explosion_vertical_top_last, 5));
             map.maps[yu][pointX].Exploding();
+            if(map.maps[yu][pointX].getType() == 2){
+                for(int i = 0 ; i < map.walls.size();i++){
+                    if(map.walls.get(i).pointX == pointX && map.walls.get(i).pointY == yu){
+                        System.out.println("cringe");
+                        map.walls.get(i).tograss();
+                    }
+                }
+            }
         }
         if (down) {
             flames.add(new Flame(pointX, yd, Sprite.explosion_vertical_down_last, 6));
             map.maps[yd][pointX].Exploding();
+            if(map.maps[yd][pointX].getType() == 2){
+                for(int i = 0 ; i < map.walls.size();i++){
+                    if(map.walls.get(i).pointX == pointX && map.walls.get(i).pointY == yd){
+                        System.out.println("cringe");
+                        map.walls.get(i).tograss();
+                    }
+                }
+            }
         }
 
     }
 
     public boolean check(int x, int y) {
         for (int i = 0; i < map.walls.size(); i++) {
-            if (x == map.walls.get(i).pointX && y == map.walls.get(i).pointY) {
+            if (x == map.walls.get(i).pointX && y == map.walls.get(i).pointY && !(map.walls.get(i) instanceof Brick)) {
                 return false;
             }
         }

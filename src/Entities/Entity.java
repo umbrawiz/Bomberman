@@ -1,5 +1,6 @@
 package Entities;
 
+import Sprites.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -20,6 +21,10 @@ public abstract class Entity {
         this.pointX = xUnit;
         this.pointY = yUnit;
         this.image = img;
+    }
+
+    public void tograss(){
+        this.image = Sprite.grass;
     }
 
     public void render(GraphicsContext gc) {
