@@ -20,8 +20,8 @@ public class Explosion extends Entity {
     }
 
     public void createExplosion(Map map) {
+        System.out.println("Hohoho");
         flames.add(new Flame(pointX, pointY, image, 0));
-        map.maps[pointY][pointX].Exploding();
         int xr = pointX + 1;
         int xl = pointX - 1;
         int yu = pointY - 1;
@@ -30,98 +30,61 @@ public class Explosion extends Entity {
         boolean right = check(xr, pointY);
         boolean up = check(pointX, yu);
         boolean down = check(pointX, yd);
-
+        System.out.println(right);
+        if (!right) {
+            meetB(xr, pointY);
+        }
+        if (!left) {
+            meetB(xl, pointY);
+        }
+        if (!up) {
+            meetB(pointX, yu);
+        }
+        if (!down) {
+            meetB(pointX, yd);
+        }
+        System.out.println(right);
         for (int j = 0; j < distance; j++) {
+            System.out.println(right);
             if (right) {
                 Flame fl = new Flame(xr, pointY, Sprite.explosion_horizontal, 1);
                 flames.add(fl);
                 map.maps[pointY][xr].Exploding();
-                if(map.maps[pointY][xr].getType() == 2){
-                    for(int i = 0 ; i < map.walls.size();i++){
-                        if(map.walls.get(i).pointX == xr && map.walls.get(i).pointY == pointY){
-                            right = false;
-                            System.out.println("cringe");
-                            Entity obj = map.walls.get(i);
-
-                            Entity newGrass = new Grass(xr,pointY,Sprite.grass);
-                            map.stillObjects.add(newGrass);
-                            map.walls.remove(obj);
-                            map.stillObjects.remove(obj);
-
-
-                        }
-                    }
-
-                }else {
-                    xr += 1;
-                    right = check(xr, pointY);
+                xr += 1;
+                right = check(xr, pointY);
+                if (!right) {
+                    meetB(xr, pointY);
                 }
-
             }
+
+
             if (left) {
                 flames.add(new Flame(xl, pointY, Sprite.explosion_horizontal, 1));
                 map.maps[pointY][xl].Exploding();
-                if(map.maps[pointY][xl].getType() == 2){
-                    for(int i = 0 ; i < map.walls.size();i++){
-                        if(map.walls.get(i).pointX == xl && map.walls.get(i).pointY == pointY){
-                            left = false;
-                            System.out.println("cringe");
-                            Entity obj = map.walls.get(i);
-                            map.walls.remove(obj);
-                            map.stillObjects.remove(obj);
-                            Entity newGrass = new Grass(xl,pointY,Sprite.grass);
-                            map.stillObjects.add(newGrass);
-
-                        }
-                    }
-                }else{
-                    xl -= 1;
-                    left = check(xl, pointY);
+                xl -= 1;
+                left = check(xl, pointY);
+                if (!left) {
+                    meetB(xl, pointY);
                 }
-
 
             }
             if (up) {
                 flames.add(new Flame(pointX, yu, Sprite.explosion_vertical, 2));
                 map.maps[yu][pointX].Exploding();
-                if(map.maps[yu][pointX].getType() == 2){
-                    for(int i = 0 ; i < map.walls.size();i++){
-                        if(map.walls.get(i).pointX == pointX && map.walls.get(i).pointY == yu){
-                            up = false;
-                            System.out.println("cringe");
-                            Entity obj = map.walls.get(i);
-                            map.walls.remove(obj);
-                            map.stillObjects.remove(obj);
-                            Entity newGrass = new Grass(pointX,yu,Sprite.grass);
-                            map.stillObjects.add(newGrass);
-                        }
-                    }
-                }else{
-                    yu -= 1;
-                    up = check(pointX, yu);
+                yu -= 1;
+                up = check(pointX, yu);
+                if (!up) {
+                    meetB(pointX, yu);
                 }
-
             }
             if (down) {
                 flames.add(new Flame(pointX, yd, Sprite.explosion_vertical, 2));
                 map.maps[yd][pointX].Exploding();
-                if(map.maps[yd][pointX].getType() == 2){
-                    for(int i = 0 ; i < map.walls.size();i++){
-                        if(map.walls.get(i).pointX == pointX && map.walls.get(i).pointY == yd){
-                            down = false;
-                            System.out.println("cringe");
-                            Entity obj = map.walls.get(i);
-                            map.walls.remove(obj);
-                            map.stillObjects.remove(obj);
-                            Entity newGrass = new Grass(pointX,yd,Sprite.grass);
-                            map.stillObjects.add(newGrass);
-                        }
-                    }
-                }else{
-                    yd += 1;
-                    down = check(pointX, yd);
+                yd += 1;
+                down = check(pointX, yd);
+                if (!down) {
+                    meetB(pointX, yd);
                 }
-
             }
         }
         if (left) {
@@ -177,13 +140,27 @@ public class Explosion extends Entity {
 
     public boolean check(int x, int y) {
         for (int i = 0; i < map.walls.size(); i++) {
-            if (x == map.walls.get(i).pointX && y == map.walls.get(i).pointY && !(map.walls.get(i) instanceof Brick) && !(map.walls.get(i) instanceof BPBrick)) {
+            if (x == map.walls.get(i).pointX && y == map.walls.get(i).pointY) {
                 return false;
             }
         }
         return true;
     }
 
+    public void meetB(int x, int y) {
+        if (map.maps[y][x].getType() == 2) {
+            for (int i = 0; i < map.walls.size(); i++) {
+                if (map.walls.get(i).pointX == x && map.walls.get(i).pointY == y) {
+                    System.out.println("cringe");
+                    Entity obj = map.walls.get(i);
+                    map.walls.remove(obj);
+                    map.stillObjects.remove(obj);
+                    Entity newGrass = new Grass(x, y, Sprite.grass);
+                    map.stillObjects.add(newGrass);
+                }
+            }
+        }
+    }
 
     @Override
     public void render(GraphicsContext gc) {
