@@ -8,14 +8,11 @@ public class Brick extends Entity {
     private int bTime = 1200;
     public boolean broken = false;
     public boolean done = false;
-    public PU powerup;
+
     public Brick(int x, int y, Image img) {
         super(x, y, img);
     }
-    public Brick(int x, int y, Image img , PU powerup){
-        super(x,y,img);
-        this.powerup = powerup;
-    }
+
 
     public void breakAnimation(){
         broken = true;
@@ -41,11 +38,4 @@ public class Brick extends Entity {
         }
     }
 
-    public PU getPowerup() {
-        return powerup;
-    }
-
-    public boolean havePU() {
-        return powerup!=null;
-    }
 }

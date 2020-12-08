@@ -42,7 +42,6 @@ public class Explosion extends Entity {
                             right = false;
                             System.out.println("cringe");
                             Entity obj = map.walls.get(i);
-                            Brick current_brick = (Brick)obj;
 
                             Entity newGrass = new Grass(xr,pointY,Sprite.grass);
                             map.stillObjects.add(newGrass);
@@ -52,6 +51,7 @@ public class Explosion extends Entity {
 
                         }
                     }
+
                 }else {
                     xr += 1;
                     right = check(xr, pointY);
@@ -177,7 +177,7 @@ public class Explosion extends Entity {
 
     public boolean check(int x, int y) {
         for (int i = 0; i < map.walls.size(); i++) {
-            if (x == map.walls.get(i).pointX && y == map.walls.get(i).pointY && !(map.walls.get(i) instanceof Brick)) {
+            if (x == map.walls.get(i).pointX && y == map.walls.get(i).pointY && !(map.walls.get(i) instanceof Brick) && !(map.walls.get(i) instanceof BPBrick)) {
                 return false;
             }
         }

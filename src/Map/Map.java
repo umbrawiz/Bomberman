@@ -69,15 +69,15 @@ public class Map {
                 } else if (maps[i][j].getType() == GRASS) {
                     object = new Grass(j, i, Sprite.grass);
                 } else if (maps[i][j].getType() == BRICK) {
-                    object = new Brick(j, i, Sprite.brick,null);
+                    object = new Brick(j, i, Sprite.brick);
                     walls.add(object);
                     bricks.add(object);
                 } else if (maps[i][j].getType() == BLANK) {
                     object = new Blank(j, i, Sprite.blank);
                     walls.add(object);
                 }else if (maps[i][j].getType() == BombsPU) {
-                    PU pu = new BombsPU(j,i,Sprite.powerup_bombs,bomber);
-                    object = new Brick(j, i, Sprite.brick,pu);
+                    BombsPU pu = new BombsPU(j,i,Sprite.powerup_bombs,bomber);
+                    object = new BPBrick(j, i, Sprite.brick,pu);
                     walls.add(object);
                     bricks.add(object);
                 }
