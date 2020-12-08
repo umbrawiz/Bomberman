@@ -1,6 +1,7 @@
 package Entities;
 
 
+import java.util.List;
 import java.util.Random;
 
 import Map.Map;
@@ -21,11 +22,14 @@ public class Balloom extends Enemy {
     }
 
     @Override
-    public boolean checkCol() {
+    public boolean checkColW(List<Entity> list) {
+        if (list.size() == 0) {
+            return true;
+        }
         switch (current_direction) {
             case Up:{
-                for (int i=0; i<map.walls.size(); i++) {
-                    if(posY - 50 == map.walls.get(i).posY && checkUD(posX, map.walls.get(i).posX)) {
+                for (Entity entity : list) {
+                    if(posY - 50 == entity.posY && checkUD(posX, entity.posX)) {
                         return false;
                     }
 //                    if (posY < map.walls.get(i).posY) {
@@ -35,11 +39,11 @@ public class Balloom extends Enemy {
                 return true;
             }
             case Down:{
-                for (int i=0; i<map.walls.size(); i++) {
+                for (Entity entity : list) {
 //                    if (posX == map.walls.get(i).posX) {
 //                        continue;
 //                    }
-                    if(posY + 50 == map.walls.get(i).posY && checkUD(posX, map.walls.get(i).posX)) {
+                    if(posY + 50 == entity.posY && checkUD(posX, entity.posX)) {
                         return false;
                     }
 //                    if (posY < map.walls.get(i).posY) {
@@ -49,22 +53,79 @@ public class Balloom extends Enemy {
                 return true;
             }
             case Left:{
-                for (int i=0; i<map.walls.size(); i++) {
+                for (Entity entity : list) {
 //                    if (posY != map.walls.get(i).posY) {
 //                        continue;
 //                    }
-                    if (posX - 50 == map.walls.get(i).posX && checkLR(posY, map.walls.get(i).posY)) {
+                    if (posX - 50 == entity.posX && checkLR(posY, entity.posY)) {
                         return false;
                     }
                 }
                 return true;
             }
             case Right:{
-                for (int i=0; i<map.walls.size(); i++) {
+                for (Entity entity : list) {
 //                    if (posY != map.walls.get(i).posY) {
 //                        continue;
 //                    }
-                    if (posX + 50 == map.walls.get(i).posX && checkLR(posY, map.walls.get(i).posY)) {
+                    if (posX + 50 == entity.posX && checkLR(posY, entity.posY)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkColB(List<Bomb> list) {
+        if (list.size() == 0) {
+            return true;
+        }
+        switch (current_direction) {
+            case Up:{
+                for (Entity entity : list) {
+                    if(posY - 50 == entity.posY && checkUD(posX, entity.posX)) {
+                        return false;
+                    }
+//                    if (posY < map.walls.get(i).posY) {
+//                        return true;
+//                    }
+                }
+                return true;
+            }
+            case Down:{
+                for (Entity entity : list) {
+//                    if (posX == map.walls.get(i).posX) {
+//                        continue;
+//                    }
+                    if(posY + 50 == entity.posY && checkUD(posX, entity.posX)) {
+                        return false;
+                    }
+//                    if (posY < map.walls.get(i).posY) {
+//                        return true;
+//                    }
+                }
+                return true;
+            }
+            case Left:{
+                for (Entity entity : list) {
+//                    if (posY != map.walls.get(i).posY) {
+//                        continue;
+//                    }
+                    if (posX - 50 == entity.posX && checkLR(posY, entity.posY)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            case Right:{
+                for (Entity entity : list) {
+//                    if (posY != map.walls.get(i).posY) {
+//                        continue;
+//                    }
+                    if (posX + 50 == entity.posX && checkLR(posY, entity.posY)) {
                         return false;
                     }
                 }
@@ -90,7 +151,7 @@ public class Balloom extends Enemy {
 
     @Override
     public void update() {
-        if (step == 0 || !checkCol()) {
+        if (step == 0 || !checkColW(map.walls) || !checkColB(map.bomber.bombs)) {
             current_direction = rand.nextInt(4) + 1;
             step = 50;
         } else {
@@ -98,28 +159,28 @@ public class Balloom extends Enemy {
         }
         switch (current_direction) {
             case Up: {
-                if (checkCol()) {
+                if (checkColW(map.walls) && checkColB(map.bomber.bombs)) {
                     this.posY -= movement_speed;
                 }
                 break;
             }
 
             case Down: {
-                if (checkCol()) {
+                if (checkColW(map.walls) && checkColB(map.bomber.bombs)) {
                     this.posY += movement_speed;
                 }
                 break;
             }
 
             case Left: {
-                if (checkCol()) {
+                if (checkColW(map.walls) && checkColB(map.bomber.bombs)) {
                     this.posX -= movement_speed;
                 }
                 break;
             }
 
             case Right: {
-                if (checkCol()) {
+                if (checkColW(map.walls) && checkColB(map.bomber.bombs)) {
                     this.posX += movement_speed;
                 }
                 break;

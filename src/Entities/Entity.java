@@ -13,6 +13,7 @@ public abstract class Entity {
     protected boolean passThru;
     protected int SIZE = 50;
 
+
     protected Image image;
 
     public Entity(int xUnit, int yUnit, Image img) {

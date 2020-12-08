@@ -23,6 +23,7 @@ public class Map {
     public List<Entity> bricks = new ArrayList<>();
     private int time = 200;
     private int frame = 12000;
+    public Bomber bomber = new Bomber(1, 2, Sprite.player_right);
 
     public void readMapFromFile(String path) throws IOException {
         File map = new File(path);

@@ -36,7 +36,7 @@ public class Bomber extends Entity {
                 current_status = Status.Left;
                 this.image = Sprite.player_left;
             }
-            if (collision(map, 2)) {
+            if (collisionB(bombs, 2) || collision(map.walls, 2)) {
                 if (smartMovement(map, 2) == 3) {
                     this.posY += 5;
                     this.pointY = this.posY / SIZE;
@@ -64,7 +64,7 @@ public class Bomber extends Entity {
                 current_status = Status.Right;
                 this.image = Sprite.player_right;
             }
-            if (collision(map, 1)) {
+            if (collisionB(bombs, 1) || collision(map.walls, 1)) {
                 if (smartMovement(map, 1) == 1) {
                     this.posY += 5;
                     this.pointY = this.posY / SIZE;
@@ -92,7 +92,7 @@ public class Bomber extends Entity {
                 current_status = Status.Up;
                 this.image = Sprite.player_up;
             }
-            if (collision(map, 3)) {
+            if (collisionB(bombs, 3) || collision(map.walls, 3)) {
                 if (smartMovement(map, 3) == 5) {
                     this.posX += 5;
                     this.pointX = this.posX / SIZE;
@@ -120,7 +120,7 @@ public class Bomber extends Entity {
                 current_status = Status.Down;
                 this.image = Sprite.player_down;
             }
-            if (collision(map, 4)) {
+            if (collisionB(bombs, 4) || collision(map.walls, 4)) {
                 if (smartMovement(map, 4) == 7) {
                     this.posX += 5;
                     this.pointX = this.posX / SIZE;
@@ -137,7 +137,6 @@ public class Bomber extends Entity {
             this.pointY = this.posY / SIZE;
         }
 
-        System.out.println(pointX + "\t" + pointY);
         if (key == KeyCode.SPACE) {
             if (bombsPU > bombs.size() && checkB(posX / 50, posY / 50)) {
                 bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb, map));
@@ -147,8 +146,8 @@ public class Bomber extends Entity {
     }
 
     public boolean checkB(int a, int b) {
-        for (int i=0; i<bombs.size(); i++) {
-            if (a == bombs.get(i).pointX && b == bombs.get(i).pointY) {
+        for (Bomb bomb : bombs) {
+            if (a == bomb.pointX && b == bomb.pointY) {
                 return false;
             }
         }
@@ -201,32 +200,67 @@ public class Bomber extends Entity {
         return -1;
     }
 
-    public boolean collision(Map map, int a) {
+    public boolean collision(List<Entity> list, int a) {
         switch (a) {
             case 1: //right
-                for (int i = 0; i < map.walls.size(); i++) {
-                    if (posX + 40 == map.walls.get(i).posX && checkLR(posY, map.walls.get(i).posY)) {
+                for (Entity entity : list) {
+                    if (posX + 40 == entity.posX && checkLR(posY, entity.posY)) {
                         return true;
                     }
                 }
                 break;
             case 2: //left
-                for (int i = 0; i < map.walls.size(); i++) {
-                    if (posX - 50 == map.walls.get(i).posX && checkLR(posY, map.walls.get(i).posY)) {
+                for (Entity entity : list) {
+                    if (posX - 50 == entity.posX && checkLR(posY, entity.posY)) {
                         return true;
                     }
                 }
                 break;
             case 3: // up
-                for (int i = 0; i < map.walls.size(); i++) {
-                    if (posY - 50 == map.walls.get(i).posY && checkUD(posX, map.walls.get(i).posX)) {
+                for (Entity entity : list) {
+                    if (posY - 50 == entity.posY && checkUD(posX, entity.posX)) {
                         return true;
                     }
                 }
                 break;
             case 4: //down
-                for (int i = 0; i < map.walls.size(); i++) {
-                    if (posY + 50 == map.walls.get(i).posY && checkUD(posX, map.walls.get(i).posX)) {
+                for (Entity entity : list) {
+                    if (posY + 50 == entity.posY && checkUD(posX, entity.posX)) {
+                        return true;
+                    }
+                }
+                break;
+            default:
+                return false;
+        }
+        return false;
+    }
+    public boolean collisionB(List<Bomb> list, int a) {
+        switch (a) {
+            case 1: //right
+                for (Bomb bomb : list) {
+                    if (posX + 40 == bomb.posX && checkLR(posY, bomb.posY)) {
+                        return true;
+                    }
+                }
+                break;
+            case 2: //left
+                for (Bomb bomb : list) {
+                    if (posX - 50 == bomb.posX && checkLR(posY, bomb.posY)) {
+                        return true;
+                    }
+                }
+                break;
+            case 3: // up
+                for (Bomb bomb : list) {
+                    if (posY - 50 == bomb.posY && checkUD(posX, bomb.posX)) {
+                        return true;
+                    }
+                }
+                break;
+            case 4: //down
+                for (Bomb bomb : list) {
+                    if (posY + 50 == bomb.posY && checkUD(posX, bomb.posX)) {
                         return true;
                     }
                 }
@@ -263,12 +297,7 @@ public class Bomber extends Entity {
         if(dTime > 0){
             dTime--;
             if(dTime % 60 == 0){
-                if(image == Sprite.player_dead1){
-                    image = Sprite.player_dead2;
-                }
-                else if(image == Sprite.player_dead2){
-                    image = Sprite.player_dead3;
-                }
+                image = Sprite.player_dead2;
             }
         }
 

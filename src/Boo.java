@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Boo extends Application {
 
-    Bomber bomber = new Bomber(1, 2, Sprite.player_right);
+
 
     Label time = new Label();
     Font font = Font.loadFont("file:data/Font/text.TTF", 24);
@@ -53,7 +53,7 @@ public class Boo extends Application {
         map.grasses.forEach(g->g.render(gc));
 //        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, map, 3);
         Balloom balloom2 = new Balloom(1, 2, Sprite.balloom_right1, map, 4);
-        BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, bomber);
+        BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, map.bomber);
         powerUps.add(pu);
 //        bl.add(balloom1);
         bl.add(balloom2);
@@ -61,7 +61,7 @@ public class Boo extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                scene.setOnKeyPressed(event -> bomber.keyPressed(event, map));
+                scene.setOnKeyPressed(event -> map.bomber.keyPressed(event, map));
                 render();
                 update();
 
@@ -75,12 +75,12 @@ public class Boo extends Application {
 
     public void update() {
         map.entities.forEach(Entity::update);
-        bomber.bombs.forEach(g -> g.update1(gc,map));
-        bomber.update();
+        map.bomber.bombs.forEach(g -> g.update1(gc,map));
+        map.bomber.update();
         map.update();
         time.setText("TIME " + map.getTime());
         bl.forEach(Entity::update);
-        bomber.alive(map);
+        map.bomber.alive(map);
         powerUps.forEach(PU::update);
         powerUps.removeIf(i -> i.obtain());
     }
@@ -89,8 +89,8 @@ public class Boo extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         map.entities.forEach(g -> g.render(gc));
         map.stillObjects.forEach(g -> g.render(gc));
-        bomber.bombs.forEach(g -> g.render(gc));
-        bomber.render(gc);
+        map.bomber.bombs.forEach(g -> g.render(gc));
+        map.bomber.render(gc);
         bl.forEach(g -> g.render(gc));
         powerUps.forEach(g -> g.render(gc));
     }
