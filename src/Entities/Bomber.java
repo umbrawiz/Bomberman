@@ -240,7 +240,7 @@ public class Bomber extends Entity {
     }
 
     public void alive(Map map){
-        if(map.maps[pointY][pointX].exploding == true){
+        if(map.maps[pointY][pointX].exploding){
             alive = false;
             deadAnimation();
         }
