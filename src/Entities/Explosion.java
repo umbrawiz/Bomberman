@@ -33,44 +33,44 @@ public class Explosion extends Entity {
         for (int i = 0; i < distance; i++) {
             if (right) {
                 flames.add(new Flame(xr, pointY, Sprite.explosion_horizontal, 1));
-                map.maps[xr][pointY].Exploding();
+                map.maps[pointY][xr].Exploding();
                 xr += 1;
                 right = check(xr, pointY);
             }
             if (left) {
                 flames.add(new Flame(xl, pointY, Sprite.explosion_horizontal, 1));
-                map.maps[xl][pointY].Exploding();
+                map.maps[pointY][xl].Exploding();
                 xl -= 1;
                 left = check(xl, pointY);
             }
             if (up) {
                 flames.add(new Flame(pointX, yu, Sprite.explosion_vertical, 2));
-                map.maps[pointX][yu].Exploding();
+                map.maps[yu][pointX].Exploding();
                 yu -= 1;
                 up = check(pointX, yu);
             }
             if (down) {
                 flames.add(new Flame(pointX, yd, Sprite.explosion_vertical, 2));
-                map.maps[pointX][yd].Exploding();
+                map.maps[yd][pointX].Exploding();
                 yd += 1;
                 down = check(pointX, yd);
             }
         }
         if (left) {
             flames.add(new Flame(xl, pointY, Sprite.explosion_horizontal_left_last, 3));
-            map.maps[xl][pointY].Exploding();
+            map.maps[pointY][xl].Exploding();
         }
         if (right) {
             flames.add(new Flame(xr, pointY, Sprite.explosion_horizontal_right_last, 4));
-            map.maps[xr][pointY].Exploding();
+            map.maps[pointY][xr].Exploding();
         }
         if (up) {
             flames.add(new Flame(pointX, yu, Sprite.explosion_vertical_top_last, 5));
-            map.maps[pointX][yu].Exploding();
+            map.maps[yu][pointX].Exploding();
         }
         if (down) {
             flames.add(new Flame(pointX, yd, Sprite.explosion_vertical_down_last, 6));
-            map.maps[pointX][yd].Exploding();
+            map.maps[yd][pointX].Exploding();
         }
 
     }

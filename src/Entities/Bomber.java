@@ -136,7 +136,7 @@ public class Bomber extends Entity {
             this.pointY = this.posY / SIZE;
         }
 
-
+        System.out.println(pointX + "\t" + pointY);
         if (key == KeyCode.SPACE) {
             bombs.add(new Bomb(posX / 50, posY / 50, Sprite.bomb, map));
         }
@@ -240,7 +240,7 @@ public class Bomber extends Entity {
     }
 
     public void alive(Map map){
-        if(map.maps[pointX][pointY].exploding == true){
+        if(map.maps[pointY][pointX].exploding == true){
             alive = false;
             deadAnimation();
         }

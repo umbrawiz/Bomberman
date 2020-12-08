@@ -26,7 +26,6 @@ public class Balloom extends Enemy {
             case Up:{
                 for (int i=0; i<map.walls.size(); i++) {
                     if(posY - 50 == map.walls.get(i).posY && checkUD(posX, map.walls.get(i).posX)) {
-                        System.out.println("up");
                         return false;
                     }
 //                    if (posY < map.walls.get(i).posY) {
@@ -41,7 +40,6 @@ public class Balloom extends Enemy {
 //                        continue;
 //                    }
                     if(posY + 50 == map.walls.get(i).posY && checkUD(posX, map.walls.get(i).posX)) {
-                        System.out.println("down");
                         return false;
                     }
 //                    if (posY < map.walls.get(i).posY) {
@@ -56,7 +54,6 @@ public class Balloom extends Enemy {
 //                        continue;
 //                    }
                     if (posX - 50 == map.walls.get(i).posX && checkLR(posY, map.walls.get(i).posY)) {
-                        System.out.println("left");
                         return false;
                     }
                 }
@@ -68,7 +65,6 @@ public class Balloom extends Enemy {
 //                        continue;
 //                    }
                     if (posX + 50 == map.walls.get(i).posX && checkLR(posY, map.walls.get(i).posY)) {
-                        System.out.println("right");
                         return false;
                     }
                 }
@@ -94,14 +90,9 @@ public class Balloom extends Enemy {
 
     @Override
     public void update() {
-        if (step == 0) {
-            while (true) {
-                current_direction = rand.nextInt(4) + 1;
-                if (checkCol()) {
-                    break;
-                }
-            }
-            step=100;
+        if (step == 0 || !checkCol()) {
+            current_direction = rand.nextInt(4) + 1;
+            step = 50;
         } else {
             step--;
         }
