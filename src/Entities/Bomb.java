@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 
 
 public class Bomb extends Entity {
-    public double timeTillEx = 120;
+    public double timeTillEx = 400;
     public int exTime = 90;
     public int power = 2;
     public Explosion ex;
