@@ -1,6 +1,4 @@
-import Entities.Balloom;
-import Entities.Bomber;
-import Entities.Entity;
+import Entities.*;
 import Map.Map;
 import Sprites.Sprite;
 import javafx.animation.AnimationTimer;
@@ -9,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
 import javafx.scene.media.Media;
@@ -24,17 +23,16 @@ import java.util.List;
 
 public class Boo extends Application {
 
-    Bomber bomber = new Bomber(1, 2, Sprite.player_right);
+
 
     Label time = new Label();
     Font font = Font.loadFont("file:data/Font/text.TTF", 24);
     private GraphicsContext gc;
     private Canvas canvas;
     private final Map map = new Map();
-    public List<Balloom> bl = new ArrayList<>();
     public static MediaPlayer mediaPlayer;
 
-
+    public List<PU> powerUps = new ArrayList<>();
     public static void main(String[] args) {
         Application.launch(Boo.class);
     }
@@ -52,6 +50,8 @@ public class Boo extends Application {
         time.setTextFill(Color.WHITE);
         time.setFont(font);
 
+        Scene scene = new Scene(root);
+
         Media media = new Media(new File("data/Music/main.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
@@ -62,7 +62,12 @@ public class Boo extends Application {
         });
         mediaPlayer.play();
 
-        Scene scene = new Scene(root);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Victory");
+        alert.setHeaderText("you won");
+        alert.setContentText("now quit");
+        alert.showAndWait();
 
 
         primaryStage.setScene(scene);
@@ -70,14 +75,15 @@ public class Boo extends Application {
         map.grasses.forEach(g->g.render(gc));
 //        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, map, 3);
         Balloom balloom2 = new Balloom(1, 2, Sprite.balloom_right1, map, 4);
-
+        BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, map.bomber);
+        powerUps.add(pu);
 //        bl.add(balloom1);
-        bl.add(balloom2);
+        map.enemies.add(balloom2);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                scene.setOnKeyPressed(event -> bomber.keyPressed(event, map));
+                scene.setOnKeyPressed(event -> map.bomber.keyPressed(event, map));
                 render();
                 update();
 
@@ -91,14 +97,16 @@ public class Boo extends Application {
 
     public void update() {
         map.entities.forEach(Entity::update);
-        bomber.bombs.forEach(g -> g.update1(gc,map));
-        bomber.update();
+        map.bomber.bombs.forEach(g -> g.update1(gc,map));
+        map.bomber.update();
         map.update();
         time.setText("TIME " + map.getTime());
-        bl.forEach(Entity::update);
-        bomber.alive(map);
-        bl.forEach(g->g.alive(map));
-        map.bricks.forEach(Entity::update);
+        map.enemies.forEach(Entity::update);
+        map.enemies.forEach(g->g.alive(map));
+        map.bomber.alive(map);
+        map.enemies.removeIf(i -> !i.isAlive);
+        powerUps.forEach(PU::update);
+        powerUps.removeIf(i -> i.obtain());
 
     }
 
@@ -106,9 +114,9 @@ public class Boo extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         map.entities.forEach(g -> g.render(gc));
         map.stillObjects.forEach(g -> g.render(gc));
-        bomber.bombs.forEach(g -> g.render(gc));
-        bomber.render(gc);
-        bl.forEach(g -> g.render(gc));
-
+        map.bomber.bombs.forEach(g -> g.render(gc));
+        map.bomber.render(gc);
+        map.enemies.forEach(g -> g.render(gc));
+        powerUps.forEach(g -> g.render(gc));
     }
 }

@@ -21,6 +21,7 @@ public class Explosion extends Entity {
 
     public void createExplosion(Map map) {
         flames.add(new Flame(pointX, pointY, image, 0));
+        map.maps[pointY][pointX].Exploding();
         int xr = pointX + 1;
         int xl = pointX - 1;
         int yu = pointY - 1;
@@ -41,10 +42,14 @@ public class Explosion extends Entity {
                             right = false;
                             System.out.println("cringe");
                             Entity obj = map.walls.get(i);
-                            map.walls.remove(obj);
-                            map.stillObjects.remove(obj);
+                            Brick current_brick = (Brick)obj;
+
                             Entity newGrass = new Grass(xr,pointY,Sprite.grass);
                             map.stillObjects.add(newGrass);
+                            map.walls.remove(obj);
+                            map.stillObjects.remove(obj);
+
+
                         }
                     }
                 }else {

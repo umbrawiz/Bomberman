@@ -13,6 +13,7 @@ public abstract class Entity {
     protected boolean passThru;
     protected int SIZE = 50;
 
+
     protected Image image;
 
     public Entity(int xUnit, int yUnit, Image img) {
@@ -29,6 +30,14 @@ public abstract class Entity {
 
     public void render(GraphicsContext gc) {
         gc.drawImage(image, posX, posY);
+    }
+
+    public int getPointX(){
+        return pointX;
+    }
+
+    public int getPointY() {
+        return pointY;
     }
 
     public abstract void update();
