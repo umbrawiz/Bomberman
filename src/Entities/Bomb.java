@@ -18,7 +18,6 @@ public class Bomb extends Entity {
         super(x, y, img);
         passThru = false;
         this.map = map;
-        ex = explosion(map);
     }
 
     public void update1(GraphicsContext gc, Map map) {
@@ -31,9 +30,12 @@ public class Bomb extends Entity {
         } else {
             this.posX = -50;
             this.posY = -50;
+            map.maps[pointY][pointX].Exploding();
             if (!exploded) {
                 if (exTime > 0) {
-                    map.maps[pointY][pointX].Exploding();
+                    if (exTime == 39) {
+                        ex = explosion(map);
+                    }
                     exTime--;
                     if (exTime == 26 || exTime == 13) {
                         ex.flames.forEach(Flame::update);
