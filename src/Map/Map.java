@@ -24,6 +24,7 @@ public class Map {
     public List<Entity> walls = new ArrayList<>();
     public List<Entity> bricks = new ArrayList<>();
     public List<Enemy> enemies = new ArrayList<>();
+    public List<PU> powerUps = new ArrayList<>();
     private int time = 200;
     private int frame = 12000;
     public Bomber bomber = new Bomber(1, 2, Sprite.player_right);

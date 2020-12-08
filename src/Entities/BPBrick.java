@@ -9,4 +9,8 @@ public class BPBrick extends Brick{
             super(x, y, img);
             this.powerup = powerup;
         }
+
+    public BombsPU getPowerup() {
+        return powerup;
+    }
 }

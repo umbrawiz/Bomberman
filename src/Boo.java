@@ -32,7 +32,7 @@ public class Boo extends Application {
     private final Map map = new Map();
     public static MediaPlayer mediaPlayer;
 
-    public List<PU> powerUps = new ArrayList<>();
+
     public static void main(String[] args) {
         Application.launch(Boo.class);
     }
@@ -63,12 +63,6 @@ public class Boo extends Application {
         mediaPlayer.play();
 
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Victory");
-        alert.setHeaderText("you won");
-        alert.setContentText("now quit");
-        alert.showAndWait();
-
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -76,7 +70,7 @@ public class Boo extends Application {
 //        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, map, 3);
         Balloom balloom2 = new Balloom(1, 2, Sprite.balloom_right1, map, 4);
         BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, map.bomber);
-        powerUps.add(pu);
+        map.powerUps.add(pu);
 //        bl.add(balloom1);
         map.enemies.add(balloom2);
 
@@ -105,9 +99,8 @@ public class Boo extends Application {
         map.enemies.forEach(g->g.alive(map));
         map.bomber.alive(map);
         map.enemies.removeIf(i -> !i.isAlive);
-        powerUps.forEach(PU::update);
-        powerUps.removeIf(i -> i.obtain());
-
+        map.powerUps.forEach(PU::update);
+        map.powerUps.removeIf(i -> i.obtain());
     }
 
     public void render() {
@@ -117,6 +110,6 @@ public class Boo extends Application {
         map.bomber.bombs.forEach(g -> g.render(gc));
         map.bomber.render(gc);
         map.enemies.forEach(g -> g.render(gc));
-        powerUps.forEach(g -> g.render(gc));
+        map.powerUps.forEach(g -> g.render(gc));
     }
 }

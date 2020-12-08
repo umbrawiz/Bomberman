@@ -7,18 +7,17 @@ import javafx.scene.image.Image;
 
 
 public class Bomb extends Entity {
-    public double timeTillEx = 120;
-    public int exTime = 60;
+    public double timeTillEx = 140;
+    public int exTime = 39;
     public int power = 2;
-    public Explosion ex;
     public Map map;
+    public Explosion ex;
     protected boolean exploded = false;
 
     public Bomb(int x, int y, Image img, Map map) {
         super(x, y, img);
         passThru = false;
         this.map = map;
-        ex = explosion();
     }
 
     public void update1(GraphicsContext gc, Map map) {
@@ -33,10 +32,12 @@ public class Bomb extends Entity {
             this.posY = -50;
             map.maps[pointY][pointX].Exploding();
             if (!exploded) {
-                ex.createExplosion(map);
                 if (exTime > 0) {
+                    if (exTime == 39) {
+                        ex = explosion(map);
+                    }
                     exTime--;
-                    if (exTime %20 == 0) {
+                    if (exTime == 26 || exTime == 13) {
                         ex.flames.forEach(Flame::update);
                     }
                     ex.flames.forEach(g -> g.render(gc));
@@ -50,9 +51,10 @@ public class Bomb extends Entity {
     }
 
 
-    public Explosion explosion() {
+    public Explosion explosion(Map map) {
 //        PassThru = true;
-        ex = new Explosion(pointX, pointY, Sprite.bomb_exploded, map, power);;
+        ex = new Explosion(pointX, pointY, Sprite.bomb_exploded, map, power);
+        ex.createExplosion(map);
         return ex;
 
     }
