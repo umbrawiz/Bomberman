@@ -2,9 +2,15 @@ package Entities;
 
 import Map.Map;
 import Sprites.Sprite;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +19,7 @@ public class Bomber extends Entity {
     private final int movement_speed = 10;
     private Status current_status;
     public boolean alive = true;
-    private int dTime = 90;
+    public int dTime = 90;
     public int bombsPU= 1;
     public int power = 0;
 
@@ -301,23 +307,21 @@ public class Bomber extends Entity {
 
     public void deadAnimation(){
         this.image = Sprite.player_dead1;
-        if(dTime > 0){
-            dTime--;
-            if(dTime % 30 == 0){
-                update();
-            }
-        }
-
     }
 
     @Override
     public void update() {
         bombs.removeIf(i -> i.exploded);
         if (!alive) {
-            if (image == Sprite.player_dead1) {
-                image = Sprite.player_dead2;
-            } else if (image == Sprite.player_dead2) {
-                image = Sprite.player_dead3;
+            if(dTime > 0){
+                dTime--;
+                if(dTime % 30 == 0){
+                    if (image == Sprite.player_dead1) {
+                        image = Sprite.player_dead2;
+                    } else if (image == Sprite.player_dead2) {
+                        image = Sprite.player_dead3;
+                    }
+                }
             }
         }
 

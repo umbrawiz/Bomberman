@@ -10,6 +10,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -22,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Boo extends Application {
-
 
 
     Label time = new Label();
@@ -38,79 +41,8 @@ public class Boo extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Booo");
-        canvas = new Canvas(1200, 800);
-        gc = canvas.getGraphicsContext2D();
-
-        Group root = new Group();
-        root.getChildren().add(canvas);
-        root.getChildren().add(time);
-        time.setPrefHeight(50);
-        time.setTextFill(Color.WHITE);
-        time.setFont(font);
-
-        Scene scene = new Scene(root);
-
-        Media media = new Media(new File("data/Music/main.mp3").toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-            public void run() {
-                mediaPlayer.seek(Duration.ZERO);
-            }
-        });
-        mediaPlayer.play();
-
-
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        map.grasses.forEach(g->g.render(gc));
-//        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, map, 3);
-        Balloom balloom2 = new Balloom(19, 2, Sprite.balloom_right1, map, 4);
-//        BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, map.bomber);
-//        map.powerUps.add(pu);
-//        bl.add(balloom1);
-        map.enemies.add(balloom2);
-        Oneal oneal = new Oneal(8,8, Sprite.oneal_right1, map, 4);
-        map.enemies.add(oneal);
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                scene.setOnKeyPressed(event -> map.bomber.keyPressed(event, map));
-                render();
-                update();
-
-            }
-        };
-        timer.start();
-        map.createMap("data/Map/map.txt");
-
-    }
-
-
-    public void update() {
-        map.entities.forEach(Entity::update);
-        map.bomber.bombs.forEach(g -> g.update1(gc,map));
-        map.bomber.update();
-        map.update();
-        time.setText("TIME " + map.getTime());
-        map.enemies.forEach(Entity::update);
-        map.enemies.forEach(g->g.alive(map));
-        map.bomber.alive(map);
-        map.enemies.removeIf(i -> !i.isAlive);
-        map.powerUps.forEach(PU::update);
-        map.powerUps.removeIf(i -> i.obtain());
-    }
-
-    public void render() {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        map.entities.forEach(g -> g.render(gc));
-        map.stillObjects.forEach(g -> g.render(gc));
-        map.bomber.bombs.forEach(g -> g.render(gc));
-        map.bomber.render(gc);
-        map.enemies.forEach(g -> g.render(gc));
-        map.powerUps.forEach(g -> g.render(gc));
+    public void start(Stage primaryStage) throws Exception {
+        GameMenu gameMenu = new GameMenu();
+        gameMenu.GameMenu(primaryStage);
     }
 }
