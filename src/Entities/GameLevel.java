@@ -30,11 +30,14 @@ import java.net.MalformedURLException;
 
 public class GameLevel {
     Label time = new Label();
+    Label score = new Label();
+    Label life = new Label();
     Font font = Font.loadFont("file:data/Font/text.TTF", 24);
     private GraphicsContext gc;
     private Canvas canvas;
     private final Map map = new Map();
     public static MediaPlayer mediaPlayer;
+    private boolean done = false;
     int check = 1;
     public void GameLevel(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Booo");
@@ -44,9 +47,26 @@ public class GameLevel {
         Group root = new Group();
         root.getChildren().add(canvas);
         root.getChildren().add(time);
+        root.getChildren().add(score);
+        root.getChildren().add(life);
+
         time.setPrefHeight(50);
         time.setTextFill(Color.WHITE);
         time.setFont(font);
+
+        score.setPrefHeight(50);
+        score.setTranslateX(500);
+
+        score.setTextFill(Color.WHITE);
+        score.setFont(font);
+
+
+        life.setPrefHeight(50);
+        life.setTextFill(Color.WHITE);
+        life.setFont(font);
+        life.setTranslateX(1000);
+
+
 
         Scene scene = new Scene(root);
 
@@ -64,26 +84,30 @@ public class GameLevel {
         primaryStage.setScene(scene);
         primaryStage.show();
         map.grasses.forEach(g -> g.render(gc));
-//        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, map, 3);
+        Balloom balloom1 = new Balloom(21, 2, Sprite.balloom_left1, map, 3);
         Balloom balloom2 = new Balloom(19, 2, Sprite.balloom_right1, map, 4);
+        Balloom balloom3 = new Balloom(1, 14, Sprite.balloom_right1, map, 4);
+        Balloom balloom4 = new Balloom(15, 11, Sprite.balloom_left1, map, 4);
 //        BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, map.bomber);
 //        map.powerUps.add(pu);
-//        bl.add(balloom1);
+        map.enemies.add(balloom1);
         map.enemies.add(balloom2);
-        Oneal oneal = new Oneal(8, 8, Sprite.oneal_right1, map, 4);
-        map.enemies.add(oneal);
+        map.enemies.add(balloom3);
+        map.enemies.add(balloom4);
+        Oneal oneal1 = new Oneal(8, 8, Sprite.oneal_right1, map, 4);
+        Oneal oneal2 = new Oneal(9, 11, Sprite.oneal_right1, map, 4);
+        map.enemies.add(oneal1);
+        map.enemies.add(oneal2);
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
                     scene.setOnKeyPressed(event -> map.bomber.keyPressed(event, map));
                     render();
                     update();
-                    if (map.bomber.dTime == 0 && check > 0) {
-
+                    if (map.bomber.dTime == 0 && !done ) {
+                        GameOver(primaryStage);
                     }
-                    if (check == 0) {
 
-                    }
 
             }
 
@@ -121,10 +145,17 @@ public class GameLevel {
         ImageView imageView1 = new ImageView(image1);
         Label label = new Label("");
 
+        Label final_score = new Label();
+        final_score.setText(map.getScore());
+        final_score.setTranslateX(500);
+        final_score.setTranslateY(500);
+
+
         // Set Image
         label.setGraphic(imageView1);
 
         stackPane.getChildren().add(label);
+        stackPane.getChildren().add(final_score);
         root.getChildren().add(stackPane);
 
         // Button
@@ -173,7 +204,7 @@ public class GameLevel {
         primaryStage.setTitle("Game Menu");
         primaryStage.setScene(scene);
         primaryStage.show();
-
+        done = true;
     }
 
     public void update( ) {
@@ -182,6 +213,8 @@ public class GameLevel {
         map.bomber.update();
         map.update();
         time.setText("TIME " + map.getTime());
+        score.setText("SCORE " + map.Score);
+        life.setText("LIFE " + map.bomber.life);
         map.enemies.forEach(Entity::update);
         map.enemies.forEach(g -> g.alive(map));
         map.bomber.alive(map);

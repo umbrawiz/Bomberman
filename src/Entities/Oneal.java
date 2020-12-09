@@ -14,6 +14,15 @@ public class Oneal extends Balloom{
     }
 
     @Override
+    public void alive(Map map) {
+        if(map.maps[pointY][pointX].exploding == true){
+            isAlive = false;
+            map.Score += 200;
+            deadAnimation();
+        }
+    }
+
+    @Override
     public void update() {
         if(isAlive){
             if (step == 0 || !checkColW(map.walls) || !checkColB(map.bomber.bombs)) {

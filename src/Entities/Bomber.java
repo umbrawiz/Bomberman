@@ -22,6 +22,7 @@ public class Bomber extends Entity {
     public int dTime = 90;
     public int bombsPU= 1;
     public int power = 0;
+    public int life = 3;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -294,15 +295,39 @@ public class Bomber extends Entity {
 
     public void alive(Map map){
         if(map.maps[pointY][pointX].exploding){
-            alive = false;
-            deadAnimation();
-        }
-        for(int i = 0 ; i < map.enemies.size();i++){
-            if(pointX == map.enemies.get(i).getPointX() && pointY == map.enemies.get(i).getPointY() ){
+
+            if(life > 0){
+                life--;
+                this.pointX = 1;
+                this.pointY = 2;
+                this.posX = pointX*SIZE;
+                this.posY = pointY*SIZE;
+            }
+            else{
                 alive = false;
                 deadAnimation();
             }
+
         }
+        for(int i = 0 ; i < map.enemies.size();i++){
+            if(pointX == map.enemies.get(i).getPointX() && pointY == map.enemies.get(i).getPointY() ){
+                if(life > 0){
+                    life--;
+                    this.pointX = 1;
+                    this.pointY = 2;
+                    this.posX = pointX*SIZE;
+                    this.posY = pointY*SIZE;
+                }
+                else{
+                    alive = false;
+                    deadAnimation();
+                }
+            }
+        }
+    }
+
+    public int getLife() {
+        return life;
     }
 
     public void deadAnimation(){

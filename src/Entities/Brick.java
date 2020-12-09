@@ -15,7 +15,6 @@ public class Brick extends Entity {
 
     public void breakAnimation(){
         this.image = Sprite.brick_exploded;
-        System.out.println("Test");
         if(bTime > 0){
             bTime--;
             if(bTime % 60 == 0){

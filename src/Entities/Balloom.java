@@ -154,6 +154,7 @@ public class Balloom extends Enemy {
     public void alive(Map map){
         if(map.maps[pointY][pointX].exploding == true){
             isAlive = false;
+            map.Score += 100;
             deadAnimation();
         }
     }

@@ -4,6 +4,7 @@ import Entities.*;
 import Sprites.Sprite;
 import com.sun.corba.se.impl.interceptors.PICurrent;
 
+import javax.sound.sampled.Port;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Map {
     public static final int BLANK = 3;
     public static final int BombsPU = 4;
     public static final int FlamesPU = 5;
+    public static final int Portal = 6;
     private static final int WIDTH = 24;
     private static final int HEIGHT = 16;
     public Tile[][] maps = new Tile[HEIGHT][WIDTH];
@@ -27,6 +29,7 @@ public class Map {
     public List<Enemy> enemies = new ArrayList<>();
     public List<PU> powerUps = new ArrayList<>();
     private int time = 200;
+    public int Score = 0;
     private int frame = 12000;
     public Bomber bomber = new Bomber(1, 2, Sprite.player_right);
 
@@ -85,6 +88,12 @@ public class Map {
                     FlamesPU pu = new FlamesPU(j,i,Sprite.powerup_flames,bomber);
                     object = new FPBrick(j, i, Sprite.brick,pu);
                     walls.add(object);
+                }else if(maps[i][j].getType() == Portal){
+                    Entity grass = new Grass(j,i,Sprite.grass);
+                    object = new Brick(j,i,Sprite.portal);
+                    stillObjects.add(grass);
+                    walls.add(object);
+                    bricks.add(object);
                 }
 
                 stillObjects.add(object);
@@ -111,5 +120,9 @@ public class Map {
 
     public String getTime() {
         return "" + this.time;
+    }
+
+    public String getScore() {
+        return "" + Score;
     }
 }
