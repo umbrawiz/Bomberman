@@ -1,6 +1,7 @@
 package Entities;
 
 import Map.Map;
+import Sprites.Sprite;
 import javafx.scene.image.Image;
 
 import java.util.Random;
@@ -14,12 +15,13 @@ public class Oneal extends Balloom{
 
     @Override
     public void update() {
-
         if(isAlive){
             if (step == 0 || !checkColW(map.walls) || !checkColB(map.bomber.bombs)) {
                 current_direction = rand.nextInt(4) + 1;
-                int opt = randS.nextInt(2)  ;
-                this.movement_speed = speed[opt];
+                if (posX%50 == 0 && posY%50 == 0) {
+                    int opt = randS.nextInt(2) ;
+                    this.movement_speed = speed[opt];
+                }
                 step = 50;
             } else {
                 step--;
@@ -42,6 +44,13 @@ public class Oneal extends Balloom{
                 }
 
                 case Left: {
+                    if (image == Sprite.oneal_left1) {
+                        image = Sprite.oneal_left2;
+                    } else if (image == Sprite.oneal_left2) {
+                        image = Sprite.oneal_left3;
+                    } else {
+                        this.image = Sprite.oneal_left1;
+                    }
                     if (checkColW(map.walls) && checkColB(map.bomber.bombs)) {
                         this.posX -= movement_speed;
                         this.pointX = this.posX/SIZE;
@@ -50,6 +59,13 @@ public class Oneal extends Balloom{
                 }
 
                 case Right: {
+                    if (image == Sprite.oneal_right1) {
+                        image = Sprite.oneal_right2;
+                    } else if (image == Sprite.oneal_right2) {
+                        image = Sprite.oneal_right3;
+                    } else {
+                        this.image = Sprite.oneal_right1;
+                    }
                     if (checkColW(map.walls) && checkColB(map.bomber.bombs)) {
                         this.posX += movement_speed;
                         this.pointX = this.posX/SIZE;

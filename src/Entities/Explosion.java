@@ -152,7 +152,6 @@ public class Explosion extends Entity {
         if (map.maps[y][x].getType() == 2) {
             for (int i = 0; i < map.walls.size(); i++) {
                 if (map.walls.get(i).pointX == x && map.walls.get(i).pointY == y) {
-                    System.out.println("cringe");
                     Entity obj = map.walls.get(i);
                     Brick current_brick = (Brick)obj;
                     current_brick.broken = true;
@@ -165,7 +164,6 @@ public class Explosion extends Entity {
         } else if (map.maps[y][x].getType() == 5) {
             for (int i = 0; i < map.walls.size(); i++) {
                 if (map.walls.get(i).pointX == x && map.walls.get(i).pointY == y) {
-                    System.out.println("cringeee");
                     Entity obj = map.walls.get(i);
                     Entity newGrass = new Grass(x, y, Sprite.grass);
                     map.stillObjects.add(newGrass);
@@ -181,7 +179,6 @@ public class Explosion extends Entity {
         else if(map.maps[y][x].getType() == 4){
             for (int i = 0; i < map.walls.size(); i++) {
                 if (map.walls.get(i).pointX == x && map.walls.get(i).pointY == y) {
-                    System.out.println("cringeee");
                     Entity obj = map.walls.get(i);
                     Entity newGrass = new Grass(x, y, Sprite.grass);
                     map.stillObjects.add(newGrass);
