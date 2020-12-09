@@ -68,12 +68,13 @@ public class Boo extends Application {
         primaryStage.show();
         map.grasses.forEach(g->g.render(gc));
 //        Balloom balloom1 = new Balloom(22, 2, Sprite.balloom_left1, map, 3);
-        Balloom balloom2 = new Balloom(1, 2, Sprite.balloom_right1, map, 4);
-        BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, map.bomber);
-        map.powerUps.add(pu);
+        Balloom balloom2 = new Balloom(19, 2, Sprite.balloom_right1, map, 4);
+//        BombsPU pu = new BombsPU(1, 6, Sprite.powerup_bombs, map.bomber);
+//        map.powerUps.add(pu);
 //        bl.add(balloom1);
         map.enemies.add(balloom2);
-
+        Oneal oneal = new Oneal(8,8, Sprite.oneal_right1, map, 4);
+        map.enemies.add(oneal);
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
